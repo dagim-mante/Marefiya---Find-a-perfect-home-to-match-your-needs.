@@ -1,16 +1,14 @@
 DO $$ BEGIN
- CREATE TYPE "public"."roles" AS ENUM('user', 'owner', 'admin');
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
-
---> statement-breakpoint
-DO $$ BEGIN
  CREATE TYPE "public"."type" AS ENUM('rent', 'sell');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
-
+--> statement-breakpoint
+DO $$ BEGIN
+ CREATE TYPE "public"."roles" AS ENUM('user', 'owner', 'admin');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "account" (
 	"userId" text NOT NULL,
