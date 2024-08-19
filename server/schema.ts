@@ -6,11 +6,14 @@ import {
     integer,
     boolean,
     pgEnum,
+    serial,
+    real,
 } from "drizzle-orm/pg-core"
 import type { AdapterAccount } from "next-auth/adapters"
 import {createId} from '@paralleldrive/cuid2'
 
-export const RoleEnum = pgEnum("roles", ["user", "admin"])
+export const RoleEnum = pgEnum("roles", ["user", "owner", "admin"])
+export const AssetTypeEnum = pgEnum("type", ["rent", "sell"])
    
 export const users = pgTable("user", {
     id: text("id")
@@ -94,3 +97,14 @@ export const twoFactorTokens = pgTable(
       }),
     })
 )
+
+
+
+export const assets = pgTable("assets", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  price: real("price").notNull(),
+  created: timestamp("created").defaultNow(),
+  type: AssetTypeEnum("type").default("rent")
+})

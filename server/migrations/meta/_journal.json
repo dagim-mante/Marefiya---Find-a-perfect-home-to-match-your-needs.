@@ -5,57 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1723473828644,
-      "tag": "0000_amused_shadowcat",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1723533305732,
-      "tag": "0001_nervous_redwing",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1723570484498,
-      "tag": "0002_good_marvel_zombies",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1723619750375,
-      "tag": "0003_typical_maximus",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1723621485602,
-      "tag": "0004_tricky_the_call",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1723662964613,
-      "tag": "0005_glorious_power_pack",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1723761694549,
-      "tag": "0006_lazy_sage",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1723763239412,
-      "tag": "0007_petite_forgotten_one",
+      "when": 1724069069872,
+      "tag": "0000_loud_veda",
       "breakpoints": true
     }
   ]
