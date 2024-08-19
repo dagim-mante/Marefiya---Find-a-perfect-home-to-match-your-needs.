@@ -24,6 +24,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { DollarSign } from "lucide-react"
+import Tiptap from "./tiptap"
   
 
 export default function AddAssetForm(){
@@ -67,10 +68,7 @@ export default function AddAssetForm(){
                                 <FormItem>
                                 <FormLabel>Asset Description</FormLabel>
                                 <FormControl>
-                                    {/* <Input 
-                                        placeholder="3 bedroom apartment"
-                                        {...field}
-                                    /> */}
+                                    <Tiptap val={field.value} />
                                 </FormControl>
                                 <FormMessage />
                                 </FormItem>
