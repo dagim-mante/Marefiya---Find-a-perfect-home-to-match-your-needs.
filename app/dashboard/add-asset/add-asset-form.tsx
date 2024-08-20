@@ -25,10 +25,17 @@ import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { DollarSign } from "lucide-react"
 import Tiptap from "./tiptap"
-  
+import {zodResolver} from '@hookform/resolvers/zod'
+import { useAction } from "next-safe-action/hooks"
+import { CreateAsset } from "@/server/actions/create-asset"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 export default function AddAssetForm(){
+
+    const router = useRouter()
     const form = useForm<z.infer<typeof AssetSchema>>({
+        resolver: zodResolver(AssetSchema),
         defaultValues: {
             title: '',
             description: '',
@@ -36,6 +43,27 @@ export default function AddAssetForm(){
             price: 0
         }
     })
+
+    const {status, execute} = useAction(CreateAsset, {
+        onSuccess: ({data}) => {
+            if(data?.success){
+                router.push('/dashboard/assets')
+                toast.success(data.success)
+            }
+            if(data?.error) toast.error(data.error)
+        },
+        onExecute: () => {
+            toast.loading('Creating Asset.')
+        },
+        onSettled: () => {
+            toast.dismiss()
+        }
+    })
+
+    const onSubmit = (values: z.infer<typeof AssetSchema>) => {
+        execute(values)
+    }
+
     return (
         <Card>
             <CardHeader>
@@ -44,7 +72,7 @@ export default function AddAssetForm(){
             </CardHeader>
             <CardContent>
                 <Form {...form}>
-                    <form onSubmit={() => console.log('hi')} className="space-y-8">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                         <FormField
                             control={form.control}
                             name="title"
@@ -130,7 +158,16 @@ export default function AddAssetForm(){
                                 </FormItem>
                             )}
                         />
-                        <Button type="submit">Submit</Button>
+                        <Button 
+                            type="submit"
+                            disabled={
+                                status === 'executing' ||
+                                !form.formState.isValid ||
+                                !form.formState.isDirty
+                            }
+                        >
+                            Add Asset
+                        </Button>
                     </form>
                 </Form>
             </CardContent>
