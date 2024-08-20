@@ -14,6 +14,7 @@ import {createId} from '@paralleldrive/cuid2'
 
 export const RoleEnum = pgEnum("roles", ["user", "owner", "admin"])
 export const AssetTypeEnum = pgEnum("type", ["rent", "sell"])
+export const RentTypeEnum = pgEnum("rentType", ["night", "week", "month"])
    
 export const users = pgTable("user", {
     id: text("id")
@@ -102,9 +103,13 @@ export const twoFactorTokens = pgTable(
 
 export const assets = pgTable("assets", {
   id: serial("id").primaryKey(),
+  owner: text("owner")
+          .notNull()
+          .references(() => users.id, { onDelete: "cascade" }),
   title: text("title").notNull(),
   description: text("description").notNull(),
   price: real("price").notNull(),
   created: timestamp("created").defaultNow(),
-  type: AssetTypeEnum("type").default("rent")
+  type: AssetTypeEnum("type").default("rent"),
+  rentType: RentTypeEnum("rentType").default("month")
 })

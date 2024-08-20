@@ -46,7 +46,7 @@ export const newVerification = async (token: string) => {
     await db.update(users).set({
         emailVerified: new Date(),
         email: existingUser.email
-    })
+    }).where(eq(users.id, existingUser.id))
     await db.delete(emailTokens).where(eq(emailTokens.id, existingToken.id))
     return {success: 'Email verified.'}
 }

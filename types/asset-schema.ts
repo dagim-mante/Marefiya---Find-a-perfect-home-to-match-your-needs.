@@ -6,5 +6,7 @@ export const AssetSchema = z.object({
     description: z.string().min(40, {message: 'Description must be atleast 40 chrachters.'}),
     type: z.enum(["rent", "sell"]),
     price: z.coerce.number({message: 'Price must be a number.'})
-            .positive({message: 'Price must be postive.'})
+            .positive({message: 'Price must be postive.'}),
+    rentType: z.enum(["night", "week", "month"]).nullable(),
+    owner: z.string()
 })

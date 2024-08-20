@@ -8,6 +8,20 @@
       "when": 1724097414157,
       "tag": "0000_early_goliath",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1724176040187,
+      "tag": "0001_safe_nebula",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1724177923657,
+      "tag": "0002_superb_lyja",
+      "breakpoints": true
     }
   ]
 }

@@ -7,7 +7,6 @@ import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
@@ -15,7 +14,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -30,8 +28,19 @@ import { useAction } from "next-safe-action/hooks"
 import { CreateAsset } from "@/server/actions/create-asset"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+import { Session } from "next-auth"
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+  
 
-export default function AddAssetForm(){
+export default function AddAssetForm({
+    session
+}: {session: Session}){
 
     const router = useRouter()
     const form = useForm<z.infer<typeof AssetSchema>>({
@@ -40,7 +49,9 @@ export default function AddAssetForm(){
             title: '',
             description: '',
             type: 'rent',
-            price: 0
+            price: 0,
+            owner: session.user.id,
+            rentType: 'night'
         }
     })
 
@@ -152,6 +163,29 @@ export default function AddAssetForm(){
                                             step="1.0"
                                             {...field}
                                         />
+                                        {form.getValues("type") === "rent" && (
+                                            <FormField
+                                                control={form.control}
+                                                name="rentType"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                    <FormControl>
+                                                        <Select defaultValue={field.value} onValueChange={field.onChange}>
+                                                            <SelectTrigger className="w-[180px]">
+                                                                <SelectValue placeholder="Per" />
+                                                            </SelectTrigger>
+                                                            <SelectContent>
+                                                                <SelectItem value="night">Nightly</SelectItem>
+                                                                <SelectItem value="week">Weekly</SelectItem>
+                                                                <SelectItem value="month">Monthly</SelectItem>
+                                                            </SelectContent>
+                                                        </Select>
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        )}  
                                     </div>
                                 </FormControl>
                                 <FormMessage />
