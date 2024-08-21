@@ -17,6 +17,9 @@ export default async function Assets(){
         return redirect('/dashboard/settings')
     }
     const assets = await db.query.assets.findMany({
+        with: {
+            assetImages: true, assetTags: true
+        },
         where: eq(assetsSchema.owner, session.user.id),
         orderBy: (assets, {desc}) => [desc(assets.id)],
     })
@@ -27,7 +30,8 @@ export default async function Assets(){
             title: asset.title,
             type: asset.type as string,
             price: asset.price,
-            image: placeholder.src
+            image: placeholder.src,
+            imageGalleryAndTags: asset
         } 
     })
     return (

@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef, Row } from "@tanstack/react-table"
-import { MoreHorizontal } from "lucide-react"
+import { FilePenLine, ImagePlus, MoreHorizontal } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -10,19 +10,28 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import Image from "next/image"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+  
 import { deleteAsset } from "@/server/actions/delete-asset"
 import { toast } from "sonner"
 import { useAction } from "next-safe-action/hooks"
 import Link from "next/link"
+import { AssetWithImagesAndTags } from "@/lib/infer-type"
+import EditorWrapper from "./editor-wrapper"
 
 type Asset = {
     id: number
     title: string
-    image: string
+    imageGalleryAndTags: AssetWithImagesAndTags
     type: string
     price: number
 }
+
 
 const ActionCell = ({row}: {row: Row<Asset>}) => {
     const {status, execute} = useAction(deleteAsset, {
@@ -80,20 +89,57 @@ export const columns: ColumnDef<Asset>[] = [
     header: 'Title'
   },
   {
-    accessorKey: 'image',
-    header: 'Images',
+    accessorKey: 'imageGalleryAndTags',
+    header: 'Gallery & Tags',
     cell: ({row}) => {
-        const cellImage = row.getValue('image') as string
-        const cellTitle = row.getValue('title') as string
+        const galleryAndTags = row.getValue('imageGalleryAndTags') as AssetWithImagesAndTags
+        let imagesAndtagsExists = true
+        if(galleryAndTags.assetImages.length === 0){
+            imagesAndtagsExists = false
+        }
+        if(galleryAndTags.assetTags.length === 0){
+            imagesAndtagsExists = false
+        }
         return (
             <div>
-                <Image
-                    src={cellImage}
-                    alt={cellTitle}
-                    width={50}
-                    height={50} 
-                    className="rounded-md"
-                />
+                { imagesAndtagsExists ? (
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <span>
+                                    <EditorWrapper 
+                                        editMode={true}
+                                        galleryAndTags={galleryAndTags}
+                                    >
+                                        <FilePenLine className="w-5 h-5 rounded-full" />
+                                    </EditorWrapper>
+                                </span>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Edit gallery and tags.</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                ) : (
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <span>
+                                    <EditorWrapper 
+                                        editMode={false}
+                                        galleryAndTags={galleryAndTags}
+                                    >
+                                        <ImagePlus className="w-5 h-5 rounded-full"/>
+                                    </EditorWrapper>
+                                </span>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Create gallery and tags.</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                )}
+
             </div>
         )
     }

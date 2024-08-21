@@ -11,6 +11,7 @@ import {
 } from "drizzle-orm/pg-core"
 import type { AdapterAccount } from "next-auth/adapters"
 import {createId} from '@paralleldrive/cuid2'
+import { relations } from "drizzle-orm"
 
 export const RoleEnum = pgEnum("roles", ["user", "owner", "admin"])
 export const AssetTypeEnum = pgEnum("type", ["rent", "sell"])
@@ -113,3 +114,39 @@ export const assets = pgTable("assets", {
   type: AssetTypeEnum("type").default("rent"),
   rentType: RentTypeEnum("rentType").default("month")
 })
+
+export const assetImages = pgTable("assetImages", {
+  id: serial("id").primaryKey(),
+  url: text("url").notNull(),
+  size: real("size").notNull(),
+  name: text("name").notNull(),
+  order: real("order").notNull(),
+  assetId: serial("assetId").notNull().references(() => assets.id, {onDelete: 'cascade'})
+})
+
+export const assetTags = pgTable("assetTags", {
+  id: serial("id").primaryKey(),
+  tag: serial("tag").notNull(),
+  assetId: serial("assetId").notNull().references(() => assetImages.id, {onDelete: 'cascade'})
+})
+
+export const assetRelations = relations(assets, ({many}) => ({
+  assetImages: many(assetImages, {relationName: "assetImages"}),
+  assetTags: many(assetTags, {relationName: "assetTags"})
+}))
+
+export const assetImagesRelations = relations(assetImages, ({one}) => ({
+  assets: one(assets, {
+    fields: [assetImages.assetId],
+    references: [assets.id],
+    relationName: "assetImages",
+  })
+}))
+
+export const assetTagsRelations = relations(assetTags, ({one}) => ({
+  assets: one(assets, {
+    fields: [assetTags.assetId],
+    references: [assets.id],
+    relationName: "assetTags",
+  })
+}))
