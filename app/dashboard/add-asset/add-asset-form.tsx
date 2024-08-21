@@ -26,7 +26,7 @@ import Tiptap from "./tiptap"
 import {zodResolver} from '@hookform/resolvers/zod'
 import { useAction } from "next-safe-action/hooks"
 import { CreateAsset } from "@/server/actions/create-asset"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { toast } from "sonner"
 import { Session } from "next-auth"
 import {
@@ -36,6 +36,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import { getAsset } from "@/server/actions/get-asset"
+import { useEffect } from "react"
   
 
 export default function AddAssetForm({
@@ -43,6 +45,8 @@ export default function AddAssetForm({
 }: {session: Session}){
 
     const router = useRouter()
+    const searchParams = useSearchParams()
+    const editMode = searchParams.get('id')
     const form = useForm<z.infer<typeof AssetSchema>>({
         resolver: zodResolver(AssetSchema),
         defaultValues: {
@@ -55,6 +59,32 @@ export default function AddAssetForm({
         }
     })
 
+    const fillFormIfEditMode = async (id: number) => {
+        if(editMode){
+            const data = await getAsset({id})
+            if(data.error){
+                toast.error(data.error)
+                router.push('/dashboard/assets')
+                return
+            }
+            if(data.success){
+                form.setValue('id', data.success.id)
+                form.setValue('title', data.success.title)
+                form.setValue('description', data.success.description)
+                form.setValue('owner', data.success.owner)
+                form.setValue('type', data.success.type)
+                form.setValue('price', data.success.price)
+                form.setValue('rentType', data.success.rentType)
+            }
+        }
+    }
+
+    useEffect(() => {
+        if(editMode){
+            fillFormIfEditMode(parseInt(editMode))
+        }
+    }, [editMode])
+
     const {status, execute} = useAction(CreateAsset, {
         onSuccess: ({data}) => {
             if(data?.success){
@@ -64,7 +94,11 @@ export default function AddAssetForm({
             if(data?.error) toast.error(data.error)
         },
         onExecute: () => {
-            toast.loading('Creating Asset.')
+            if(editMode){
+                toast.loading('Updating asset...')
+            }else{
+                toast.loading('Creating asset...')
+            }
         },
         onSettled: () => {
             toast.dismiss()
@@ -78,8 +112,10 @@ export default function AddAssetForm({
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Card Title</CardTitle>
-                <CardDescription>Card Description</CardDescription>
+                <CardTitle>{editMode ? "Edit Asset" : "Create Asset"}</CardTitle>
+                <CardDescription>
+                    {editMode ? "Update your existing assets." : "Create a new asset."}
+                </CardDescription>
             </CardHeader>
             <CardContent>
                 <Form {...form}>
@@ -200,7 +236,7 @@ export default function AddAssetForm({
                                 !form.formState.isDirty
                             }
                         >
-                            Add Asset
+                            {editMode ? "Save Changes" : "Add Asset"}
                         </Button>
                     </form>
                 </Form>

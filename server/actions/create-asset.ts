@@ -3,8 +3,9 @@
 import { AssetSchema } from "@/types/asset-schema"
 import { createSafeActionClient } from "next-safe-action"
 import { db } from ".."
-import { eq } from "drizzle-orm"
+import { and, eq } from "drizzle-orm"
 import { assets } from "../schema"
+import { revalidatePath } from "next/cache"
 
 const action = createSafeActionClient()
 export const CreateAsset = action
@@ -19,7 +20,7 @@ export const CreateAsset = action
             }
             if(id){
                 const existingAsset = await db.query.assets.findFirst({
-                    where: eq(assets.id, id) && eq(assets.owner, owner)
+                    where: and(eq(assets.id, id), eq(assets.owner, owner))
                 })
                 if(!existingAsset) return {error: 'Asset not found'}
                 const editedAsset = await db.update(assets).set({
@@ -29,6 +30,7 @@ export const CreateAsset = action
                     price,
                     rentType,
                 }).where(eq(assets.id, id) && eq(assets.owner, owner)).returning()
+                revalidatePath('/dashboard/assets')
                 return {success: `Asset ${editedAsset[0].title} updated!`}
             }else{
                 const newAsset = await db.insert(assets).values({
@@ -39,6 +41,7 @@ export const CreateAsset = action
                     owner,
                     rentType
                 }).returning()
+                revalidatePath('/dashboard/assets')
                 return {success: `Asset ${newAsset[0].title} added!`}
             }
         }catch(err){
