@@ -19,14 +19,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { AssetWithGalleryAndTagsSchema } from "@/types/assets-with-gallery-schema"
-import InputTags from "./input-tags"  
+import {InputTags} from "./input-tags"  
+import {AssetImagesUploader} from "./asset-images-upload"
 
-export default function EditorWrapper({
+export const EditorWrapper = ({
     editMode,
     galleryAndTags,
     children
@@ -34,7 +34,7 @@ export default function EditorWrapper({
     editMode: boolean,
     galleryAndTags: AssetWithImagesAndTags,
     children: React.ReactNode
-}){
+}) => {
     const form = useForm<z.infer<typeof AssetWithGalleryAndTagsSchema>>({
         resolver: zodResolver(AssetWithGalleryAndTagsSchema),
         defaultValues: {
@@ -51,7 +51,7 @@ export default function EditorWrapper({
     return (
         <Dialog>
             <DialogTrigger>{children}</DialogTrigger>
-            <DialogContent>
+            <DialogContent className="md:max-w-screen-md lg:max-w-screen-lg sm:max-w-screen-sm rounded-md overflow-y-scroll max-h-[520px]">
                 <DialogHeader>
                 <DialogTitle>{editMode ? 'Edit' : 'Create' } Gallery and Tags</DialogTitle>
                 <DialogDescription>
@@ -73,19 +73,7 @@ export default function EditorWrapper({
                                 </FormItem>
                             )}
                         />
-                        <FormField
-                            control={form.control}
-                            name="images"
-                            render={({ field }) => (
-                                <FormItem>
-                                <FormLabel>Username</FormLabel>
-                                <FormControl>
-                                    <div>hi</div>
-                                </FormControl>
-                                <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                        <AssetImagesUploader />
                         <Button type="submit">
                             {editMode ? 'Save changes' : 'Add to asset'}
                         </Button>

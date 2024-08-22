@@ -2,7 +2,7 @@
 
 import { Input, InputProps } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-import { Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, forwardRef, SetStateAction, useState } from "react"
 import { useFormContext } from "react-hook-form"
 import {AnimatePresence, motion} from "framer-motion"
 import { XIcon } from "lucide-react"
@@ -13,7 +13,7 @@ type InputTagsProps = InputProps & {
     onChange: Dispatch<SetStateAction<string[]>>
 }
 
-export default function InputTags({value, onChange, ...props}: InputTagsProps){
+export const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(({value, onChange, ...props}, ref: InputTagsProps) => {
     const [pendingDataPoint, setPendingDataPoint] = useState('')
     const [focused, setFocused] = useState(false)
 
@@ -74,4 +74,6 @@ export default function InputTags({value, onChange, ...props}: InputTagsProps){
             </motion.div>
         </div>
     )
-}
+})
+
+InputTags.displayName = "InputTags"

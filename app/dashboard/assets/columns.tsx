@@ -22,7 +22,7 @@ import { toast } from "sonner"
 import { useAction } from "next-safe-action/hooks"
 import Link from "next/link"
 import { AssetWithImagesAndTags } from "@/lib/infer-type"
-import EditorWrapper from "./editor-wrapper"
+import {EditorWrapper} from "./editor-wrapper"
 
 type Asset = {
     id: number
