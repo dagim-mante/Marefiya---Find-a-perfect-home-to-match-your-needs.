@@ -24,7 +24,8 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { AssetWithGalleryAndTagsSchema } from "@/types/assets-with-gallery-schema"
-  
+import InputTags from "./input-tags"  
+
 export default function EditorWrapper({
     editMode,
     galleryAndTags,
@@ -64,9 +65,9 @@ export default function EditorWrapper({
                             name="tags"
                             render={({ field }) => (
                                 <FormItem>
-                                <FormLabel>Username</FormLabel>
+                                <FormLabel>Tags</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="shadcn" {...field} />
+                                    <InputTags {...field} onChange={(e) => field.onChange(e)}/>
                                 </FormControl>
                                 <FormMessage />
                                 </FormItem>
@@ -79,7 +80,7 @@ export default function EditorWrapper({
                                 <FormItem>
                                 <FormLabel>Username</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="shadcn" {...field} />
+                                    <div>hi</div>
                                 </FormControl>
                                 <FormMessage />
                                 </FormItem>
