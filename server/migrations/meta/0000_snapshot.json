@@ -1,5 +1,5 @@
 {
-  "id": "4a0b30a9-f189-4a78-a371-761d897e053c",
+  "id": "d29d3b2e-b9c4-4538-8a79-22215bb0f3eb",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -102,6 +102,108 @@
       },
       "uniqueConstraints": {}
     },
+    "public.assetImages": {
+      "name": "assetImages",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "size": {
+          "name": "size",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "assetId": {
+          "name": "assetId",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "assetImages_assetId_assets_id_fk": {
+          "name": "assetImages_assetId_assets_id_fk",
+          "tableFrom": "assetImages",
+          "tableTo": "assets",
+          "columnsFrom": [
+            "assetId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.assetTags": {
+      "name": "assetTags",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "tag": {
+          "name": "tag",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "assetId": {
+          "name": "assetId",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "assetTags_assetId_assetImages_id_fk": {
+          "name": "assetTags_assetId_assetImages_id_fk",
+          "tableFrom": "assetTags",
+          "tableTo": "assetImages",
+          "columnsFrom": [
+            "assetId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.assets": {
       "name": "assets",
       "schema": "",
@@ -110,6 +212,12 @@
           "name": "id",
           "type": "serial",
           "primaryKey": true,
+          "notNull": true
+        },
+        "owner": {
+          "name": "owner",
+          "type": "text",
+          "primaryKey": false,
           "notNull": true
         },
         "title": {
@@ -144,10 +252,32 @@
           "primaryKey": false,
           "notNull": false,
           "default": "'rent'"
+        },
+        "rentType": {
+          "name": "rentType",
+          "type": "rentType",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'month'"
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "assets_owner_user_id_fk": {
+          "name": "assets_owner_user_id_fk",
+          "tableFrom": "assets",
+          "tableTo": "user",
+          "columnsFrom": [
+            "owner"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
@@ -368,6 +498,15 @@
         "sell"
       ]
     },
+    "public.rentType": {
+      "name": "rentType",
+      "schema": "public",
+      "values": [
+        "night",
+        "week",
+        "month"
+      ]
+    },
     "public.roles": {
       "name": "roles",
       "schema": "public",
@@ -379,7 +518,6 @@
     }
   },
   "schemas": {},
-  "sequences": {},
   "_meta": {
     "columns": {},
     "schemas": {},

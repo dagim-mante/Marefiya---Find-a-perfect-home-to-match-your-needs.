@@ -110,6 +110,7 @@ export const columns: ColumnDef<Asset>[] = [
                                     <EditorWrapper 
                                         editMode={true}
                                         galleryAndTags={galleryAndTags}
+                                        assetId={row.original.id}
                                     >
                                         <FilePenLine className="w-5 h-5 rounded-full" />
                                     </EditorWrapper>
@@ -127,6 +128,7 @@ export const columns: ColumnDef<Asset>[] = [
                                 <span>
                                     <EditorWrapper 
                                         editMode={false}
+                                        assetId={row.original.id}
                                         galleryAndTags={galleryAndTags}
                                     >
                                         <ImagePlus className="w-5 h-5 rounded-full"/>

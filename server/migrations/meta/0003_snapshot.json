@@ -1,6 +1,6 @@
 {
-  "id": "570c1a1f-fa3e-4718-87d4-786e0d07988b",
-  "prevId": "5912d8f2-50ee-47a3-ab37-381531151abe",
+  "id": "eaf07a2f-60d7-44aa-97d1-c5bfdfafe4c0",
+  "prevId": "e412a2eb-ccc2-4fe7-8288-e4d8799ddce5",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -174,7 +174,7 @@
         },
         "tag": {
           "name": "tag",
-          "type": "serial",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -187,10 +187,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "assetTags_assetId_assetImages_id_fk": {
-          "name": "assetTags_assetId_assetImages_id_fk",
+        "assetTags_assetId_assets_id_fk": {
+          "name": "assetTags_assetId_assets_id_fk",
           "tableFrom": "assetTags",
-          "tableTo": "assetImages",
+          "tableTo": "assets",
           "columnsFrom": [
             "assetId"
           ],
@@ -518,7 +518,6 @@
     }
   },
   "schemas": {},
-  "sequences": {},
   "_meta": {
     "columns": {},
     "schemas": {},

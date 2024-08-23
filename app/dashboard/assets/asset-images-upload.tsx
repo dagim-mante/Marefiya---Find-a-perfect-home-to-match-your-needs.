@@ -120,7 +120,7 @@ export const AssetImagesUploader = () => {
                             <Reorder.Item
                                 as="tr"
                                 onDragCapture={() => setActive(index)}
-                                key={fields.id}
+                                key={field.id}
                                 value={field}
                                 id={field.id}
                                 className={cn(

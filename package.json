@@ -60,7 +60,7 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "bcryptjs": "^2.4.3",
-    "drizzle-kit": "^0.23.2",
+    "drizzle-kit": "^0.22.8",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.5",
     "postcss": "^8.4.41",

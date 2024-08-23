@@ -2,6 +2,7 @@ import * as z from "zod"
 
 export const AssetWithGalleryAndTagsSchema = z.object({
   id: z.number().optional(),
+  assetId: z.number(),
   editMode: z.boolean(),
   tags: z.array(z.string()).min(1, {
     message: "You must provide at least one tag",

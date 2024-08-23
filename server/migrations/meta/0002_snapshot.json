@@ -1,6 +1,6 @@
 {
-  "id": "5912d8f2-50ee-47a3-ab37-381531151abe",
-  "prevId": "bc6808f4-d2c1-4fcf-98ed-4d7cd67d5c66",
+  "id": "e412a2eb-ccc2-4fe7-8288-e4d8799ddce5",
+  "prevId": "290ac1c0-b878-4849-af26-fbe9c6c91626",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -100,6 +100,108 @@
           ]
         }
       },
+      "uniqueConstraints": {}
+    },
+    "public.assetImages": {
+      "name": "assetImages",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "size": {
+          "name": "size",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "assetId": {
+          "name": "assetId",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "assetImages_assetId_assets_id_fk": {
+          "name": "assetImages_assetId_assets_id_fk",
+          "tableFrom": "assetImages",
+          "tableTo": "assets",
+          "columnsFrom": [
+            "assetId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.assetTags": {
+      "name": "assetTags",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "tag": {
+          "name": "tag",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "assetId": {
+          "name": "assetId",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "assetTags_assetId_assetImages_id_fk": {
+          "name": "assetTags_assetId_assetImages_id_fk",
+          "tableFrom": "assetTags",
+          "tableTo": "assetImages",
+          "columnsFrom": [
+            "assetId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
     "public.assets": {
@@ -416,7 +518,6 @@
     }
   },
   "schemas": {},
-  "sequences": {},
   "_meta": {
     "columns": {},
     "schemas": {},

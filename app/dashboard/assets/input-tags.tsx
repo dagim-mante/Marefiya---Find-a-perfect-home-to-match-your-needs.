@@ -42,7 +42,10 @@ export const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(({value, o
                             <Badge variant={'secondary'}>{tag}</Badge>
                             <button
                                 className="w-3 ml-1"
-                                onClick={() => onChange(value.filter(t => t != tag))}
+                                onClick={e => {
+                                    e.preventDefault()
+                                    onChange(value.filter(t => t != tag))
+                                }}
                             >
                                 <XIcon className="w-3" />
                             </button>

@@ -25,14 +25,20 @@ import * as z from "zod"
 import { AssetWithGalleryAndTagsSchema } from "@/types/assets-with-gallery-schema"
 import {InputTags} from "./input-tags"  
 import {AssetImagesUploader} from "./asset-images-upload"
+import { useAction } from "next-safe-action/hooks"
+import { CreateGalleryAndTags } from "@/server/actions/asset-with-gallery"
+import { toast } from "sonner"
+import {useEffect, useState} from "react"
 
 export const EditorWrapper = ({
     editMode,
     galleryAndTags,
+    assetId,
     children
 }: {
     editMode: boolean,
     galleryAndTags: AssetWithImagesAndTags,
+    assetId: number,
     children: React.ReactNode
 }) => {
     const form = useForm<z.infer<typeof AssetWithGalleryAndTagsSchema>>({
@@ -41,15 +47,60 @@ export const EditorWrapper = ({
             editMode,
             images: [],
             tags: [],
-            id: undefined
+            id: assetId,
+            assetId
+        }
+    })
+
+    const {status, execute} = useAction(CreateGalleryAndTags, {
+        onExecute: () => {
+            toast.loading('Updating Gallery and Tags.')
+        },
+        onSuccess: ({data}) => {
+            if(data?.success){
+                toast.success(data.success)
+            }
+            if(data?.error){
+                toast.error(data.error)
+            }
+        },
+        onSettled: () => {
+            setOpen(false)
+            toast.dismiss()
         }
     })
 
     const onSubmit = (values: z.infer<typeof AssetWithGalleryAndTagsSchema>) => {
-        console.log(values)
+        execute(values)
     }
+
+    const [open, setOpen] = useState(false)
+    const setEdit = () => {
+        if(!editMode){
+            form.reset()
+            return
+        }else{
+            if(galleryAndTags){
+                form.setValue('editMode', editMode)
+                form.setValue('id', assetId)
+                form.setValue('assetId', galleryAndTags.id)
+                form.setValue('images', galleryAndTags.assetImages.map(assetImage => ({
+                    name: assetImage.name,
+                    url: assetImage.url,
+                    size: assetImage.size
+                })))
+                form.setValue('tags', galleryAndTags.assetTags.map(assetTag => assetTag.tag))
+            }
+        }
+    }
+
+    useEffect(() => {
+        setEdit()
+    }, [editMode])
+
+
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger>{children}</DialogTrigger>
             <DialogContent className="md:max-w-screen-md lg:max-w-screen-lg sm:max-w-screen-sm rounded-md overflow-y-scroll max-h-[520px]">
                 <DialogHeader>
@@ -74,7 +125,10 @@ export const EditorWrapper = ({
                             )}
                         />
                         <AssetImagesUploader />
-                        <Button type="submit">
+                        <Button 
+                            disabled={status === 'executing'}
+                            type="submit"
+                        >
                             {editMode ? 'Save changes' : 'Add to asset'}
                         </Button>
                     </form>

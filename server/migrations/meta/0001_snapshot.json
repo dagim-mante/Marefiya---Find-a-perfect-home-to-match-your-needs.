@@ -1,6 +1,6 @@
 {
-  "id": "bc6808f4-d2c1-4fcf-98ed-4d7cd67d5c66",
-  "prevId": "4a0b30a9-f189-4a78-a371-761d897e053c",
+  "id": "290ac1c0-b878-4849-af26-fbe9c6c91626",
+  "prevId": "d29d3b2e-b9c4-4538-8a79-22215bb0f3eb",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -102,6 +102,108 @@
       },
       "uniqueConstraints": {}
     },
+    "public.assetImages": {
+      "name": "assetImages",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "size": {
+          "name": "size",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "assetId": {
+          "name": "assetId",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "assetImages_assetId_assets_id_fk": {
+          "name": "assetImages_assetId_assets_id_fk",
+          "tableFrom": "assetImages",
+          "tableTo": "assets",
+          "columnsFrom": [
+            "assetId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.assetTags": {
+      "name": "assetTags",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tag": {
+          "name": "tag",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "assetId": {
+          "name": "assetId",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "assetTags_assetId_assetImages_id_fk": {
+          "name": "assetTags_assetId_assetImages_id_fk",
+          "tableFrom": "assetTags",
+          "tableTo": "assetImages",
+          "columnsFrom": [
+            "assetId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.assets": {
       "name": "assets",
       "schema": "",
@@ -150,6 +252,14 @@
           "primaryKey": false,
           "notNull": false,
           "default": "'rent'"
+        },
+        "rentType": {
+          "name": "rentType",
+          "type": "rentType",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'month'"
         }
       },
       "indexes": {},
@@ -388,6 +498,15 @@
         "sell"
       ]
     },
+    "public.rentType": {
+      "name": "rentType",
+      "schema": "public",
+      "values": [
+        "night",
+        "week",
+        "month"
+      ]
+    },
     "public.roles": {
       "name": "roles",
       "schema": "public",
@@ -399,7 +518,6 @@
     }
   },
   "schemas": {},
-  "sequences": {},
   "_meta": {
     "columns": {},
     "schemas": {},

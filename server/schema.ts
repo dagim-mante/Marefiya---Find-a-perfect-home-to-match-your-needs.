@@ -126,20 +126,19 @@ export const assetImages = pgTable("assetImages", {
 
 export const assetTags = pgTable("assetTags", {
   id: serial("id").primaryKey(),
-  tag: serial("tag").notNull(),
-  assetId: serial("assetId").notNull().references(() => assetImages.id, {onDelete: 'cascade'})
+  tag: text("tag").notNull(),
+  assetId: serial("assetId").notNull().references(() => assets.id, {onDelete: 'cascade'})
 })
 
 export const assetRelations = relations(assets, ({many}) => ({
-  assetImages: many(assetImages, {relationName: "assetImages"}),
-  assetTags: many(assetTags, {relationName: "assetTags"})
+  assetImages: many(assetImages),
+  assetTags: many(assetTags)
 }))
 
 export const assetImagesRelations = relations(assetImages, ({one}) => ({
   assets: one(assets, {
     fields: [assetImages.assetId],
     references: [assets.id],
-    relationName: "assetImages",
   })
 }))
 
@@ -147,6 +146,5 @@ export const assetTagsRelations = relations(assetTags, ({one}) => ({
   assets: one(assets, {
     fields: [assetTags.assetId],
     references: [assets.id],
-    relationName: "assetTags",
   })
 }))
