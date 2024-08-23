@@ -13,7 +13,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import Image from "next/image"
 import { LogOut, Moon, Settings, Sun, TruckIcon } from "lucide-react"
 import { useTheme } from "next-themes"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Switch } from "../ui/switch"
 import {useRouter} from "next/navigation"  
 
@@ -29,6 +29,10 @@ export default function UserButton({user, expires}:Session){
             case "system": return setChecked(false)
         }
     }
+
+    useEffect(() => {
+        setSwitchState()
+    }, [])
 
     if(user){
         return (
