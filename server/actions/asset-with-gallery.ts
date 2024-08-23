@@ -7,6 +7,14 @@ import { eq } from "drizzle-orm"
 import { Pool } from "@neondatabase/serverless"
 import { drizzle } from "drizzle-orm/neon-serverless"
 import { revalidatePath } from "next/cache"
+import algoliasearch from "algoliasearch"
+import { db } from ".."
+
+const client = algoliasearch(
+    process.env.NEXT_PUBLIC_ALGOLIA_ID!,
+    process.env.ALGOLIA_ADMIN!
+)
+const algoliaIndex = client.initIndex('assets')
 
 const action = createSafeActionClient()
 export const CreateGalleryAndTags = action
@@ -36,6 +44,19 @@ export const CreateGalleryAndTags = action
                         }))
                     )
                 })
+                const newAsset = await db.query.assets.findFirst({
+                    where: eq(assets.id, assetId)
+                })
+                if(newAsset){
+                    algoliaIndex.partialUpdateObject({
+                        objectID: newAsset.id.toString(),
+                        id: newAsset.id,
+                        title: newAsset.title,
+                        description: newAsset.description,
+                        price: newAsset.price,
+                        type: newAsset.type
+                    })
+                }
                 revalidatePath('/dashboard/assets')
                 return {success: 'Your Gallery and tags updated.'}
             }else{
@@ -56,6 +77,19 @@ export const CreateGalleryAndTags = action
                         }))
                     )
                 })
+                const newAsset = await db.query.assets.findFirst({
+                    where: eq(assets.id, assetId)
+                })
+                if(newAsset){
+                    algoliaIndex.saveObject({
+                        objectID: newAsset.id.toString(),
+                        id: newAsset.id,
+                        title: newAsset.title,
+                        description: newAsset.description,
+                        price: newAsset.price,
+                        type: newAsset.type
+                    })
+                }
                 revalidatePath('/dashboard/assets')
                 return {success: 'Your Gallery and tags were created.'}
             }

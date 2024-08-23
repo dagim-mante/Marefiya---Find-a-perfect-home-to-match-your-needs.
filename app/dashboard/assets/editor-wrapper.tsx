@@ -126,7 +126,11 @@ export const EditorWrapper = ({
                         />
                         <AssetImagesUploader />
                         <Button 
-                            disabled={status === 'executing'}
+                            disabled={
+                                status === 'executing' || 
+                                !form.formState.isValid ||
+                                !form.formState.isDirty
+                            }
                             type="submit"
                         >
                             {editMode ? 'Save changes' : 'Add to asset'}
