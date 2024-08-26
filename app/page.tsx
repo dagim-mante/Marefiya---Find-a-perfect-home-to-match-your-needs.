@@ -1,4 +1,5 @@
 import Assets from "@/components/assets/assets";
+import ReviewsForm from "@/components/reviews/review-form";
 import { db } from "@/server";
 
 export default async function Home() {
@@ -10,6 +11,6 @@ export default async function Home() {
     orderBy: (assets, {desc}) => [desc(assets.id)]
   })
   return (
-    <Assets assets={data}/>
+      <Assets assets={data}/>
   );
 }

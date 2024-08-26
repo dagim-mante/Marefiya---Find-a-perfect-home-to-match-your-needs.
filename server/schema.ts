@@ -8,10 +8,12 @@ import {
     pgEnum,
     serial,
     real,
+    index,
 } from "drizzle-orm/pg-core"
 import type { AdapterAccount } from "next-auth/adapters"
 import {createId} from '@paralleldrive/cuid2'
 import { relations } from "drizzle-orm"
+import AssetDetails from "@/app/assets/[id]/page"
 
 export const RoleEnum = pgEnum("roles", ["user", "owner", "admin"])
 export const AssetTypeEnum = pgEnum("type", ["rent", "sell"])
@@ -130,9 +132,39 @@ export const assetTags = pgTable("assetTags", {
   assetId: serial("assetId").notNull().references(() => assets.id, {onDelete: 'cascade'})
 })
 
+export const reviews = pgTable('reviews' , {
+  id: serial('id').primaryKey(),
+  rating: real('rating').notNull(),
+  userId: text('userId').notNull().references(() => users.id, {onDelete: 'cascade'}),
+  assetId: serial('assetId').notNull().references(() => assets.id, {onDelete: 'cascade'}),
+  comment: text('comment').notNull(),
+  created: timestamp('created').defaultNow()
+}, (table) => {
+    return {
+      assetIdx: index('assetIdx').on(table.assetId),
+      userIdx: index('userIdx').on(table.userId)
+    }
+})
+
+export const reviewRelations = relations(reviews, ({one}) => ({
+  user: one(users, {
+    fields: [reviews.userId],
+    references: [users.id]
+  }),
+  asset: one(assets, {
+    fields: [reviews.assetId],
+    references: [assets.id]
+  })
+}))
+
+export const userRelations = relations(users, ({many}) => ({
+  reviews: many(reviews)
+}))
+
 export const assetRelations = relations(assets, ({many}) => ({
   assetImages: many(assetImages),
-  assetTags: many(assetTags)
+  assetTags: many(assetTags),
+  reviews: many(reviews)
 }))
 
 export const assetImagesRelations = relations(assetImages, ({one}) => ({
