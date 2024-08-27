@@ -35,9 +35,14 @@ export default function ReviewsForm({assetId}: {assetId: number}){
     })
 
     const {status, execute} = useAction(addReview, {
-        // TODO - Fix add toast
         onSuccess({data}){
-            console.log('Success')
+            if(data?.success){
+                form.reset()
+                toast.success(data.success)
+            }
+            if(data?.error){
+                toast.error(data.error)
+            }
         }
     })
 
