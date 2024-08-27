@@ -8,5 +8,6 @@ export const ReviewsFormSchema = z.object({
         message: 'Please add atleast 1 star.'
     }).max(5, {
         message: 'You can\'t add more than 5 stars.'
-    })
+    }),
+    assetId: z.number()
 })

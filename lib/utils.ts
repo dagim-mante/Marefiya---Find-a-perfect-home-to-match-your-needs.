@@ -12,7 +12,15 @@ export function formatPrice(price: number, type: string | null, rentType:string 
     currency: 'ETB'
   }).format(price)
   if(type === 'rent'){
-    return `${formattedPrice}/${rentType?.slice(0,1).toUpperCase()}${rentType?.slice(1)}`
+    let shortHand = ''
+    if(rentType === 'month'){
+      shortHand = 'Mo'
+    }else if(rentType === 'week'){
+      shortHand = 'Wk'
+    }else if(rentType === 'night'){
+      shortHand = 'Ni'
+    }
+    return `${formattedPrice}/${shortHand}`
   }
   return formattedPrice
 }

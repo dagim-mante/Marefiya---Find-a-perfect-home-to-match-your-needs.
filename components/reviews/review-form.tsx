@@ -20,18 +20,33 @@ import { Textarea } from "../ui/textarea"
 import {motion} from "framer-motion"
 import { Star } from "lucide-react"
 import {cn} from "@/lib/utils"
+import { useAction } from "next-safe-action/hooks"
+import { addReview } from "@/server/actions/add-review"
+import { toast } from "sonner"
 
-export default function ReviewsForm(){
+export default function ReviewsForm({assetId}: {assetId: number}){
     const form =  useForm<z.infer <typeof ReviewsFormSchema>>({
         resolver: zodResolver(ReviewsFormSchema),
         defaultValues: {
             comment: '',
-            rating: 0
+            rating: 0,
+            assetId
+        }
+    })
+
+    const {status, execute} = useAction(addReview, {
+        // TODO - Fix add toast
+        onSuccess({data}){
+            console.log('Success')
         }
     })
 
     const onSubmit = (values: z.infer<typeof ReviewsFormSchema>) => {
-        console.log(values)
+        execute({
+            comment: values.comment,
+            rating: values.rating,
+            assetId: values.assetId
+        })
     }
 
     return (
@@ -100,8 +115,11 @@ export default function ReviewsForm(){
                             </FormItem>
                         )}
                     />
-                    <Button type="submit">
-                        Add Review
+                    <Button 
+                        disabled={status === "executing"}
+                        type="submit"
+                    >
+                        {status === 'executing' ? 'Adding Review...' : 'Add Review'}
                     </Button>
                 </form>
             </Form>

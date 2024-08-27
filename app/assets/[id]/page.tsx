@@ -1,4 +1,5 @@
 import AssetShowcase from "@/components/assets/asset-showcase"
+import Reviews from "@/components/reviews/reviews"
 import { Separator } from "@/components/ui/separator"
 import { formatPrice } from "@/lib/utils"
 import { db } from "@/server"
@@ -37,6 +38,7 @@ export default async function AssetDetails({
                         ></div>
                     </div>
                 </section>
+                <Reviews assetId={asset.id} />
             </main>
         )
     }

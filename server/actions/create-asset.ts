@@ -6,11 +6,15 @@ import { db } from ".."
 import { and, eq } from "drizzle-orm"
 import { assets } from "../schema"
 import { revalidatePath } from "next/cache"
+import { auth } from "../auth"
 
 const action = createSafeActionClient()
 export const CreateAsset = action
     .schema(AssetSchema)
     .action(async ({parsedInput: {id, title, description, type, price, owner, rentType}}) => {
+        const session = await auth()
+        if(!session || session?.user.role !== 'owner')return {error: 'You don\'t have access to this action.'}
+        
         if(!title || !description || !type || !price || !owner || !rentType){
             return {error: 'Incomplete form.'}
         }

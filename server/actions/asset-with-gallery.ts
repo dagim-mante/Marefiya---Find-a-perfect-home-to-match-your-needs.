@@ -9,6 +9,7 @@ import { drizzle } from "drizzle-orm/neon-serverless"
 import { revalidatePath } from "next/cache"
 import algoliasearch from "algoliasearch"
 import { db } from ".."
+import { auth } from "../auth"
 
 const client = algoliasearch(
     process.env.NEXT_PUBLIC_ALGOLIA_ID!,
@@ -22,6 +23,8 @@ export const CreateGalleryAndTags = action
     .action(async ({parsedInput: {id, assetId, editMode, tags, images}}) => {
         const pool = new Pool({ connectionString: process.env.POSTGRES_URL })
         const dbPool = drizzle(pool)
+        const session = await auth()
+        if(!session || session?.user.role !== 'owner')return {error: 'You don\'t have access to this action.'}
         try{
             if(editMode && assetId){
                 await dbPool.transaction(async (tx) => {
