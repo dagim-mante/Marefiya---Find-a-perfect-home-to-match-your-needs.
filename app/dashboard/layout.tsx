@@ -40,6 +40,11 @@ export default async function DashboardLayout(
             path: '/dashboard/analytics',
             icon: <BarChart size={16} />
         },
+        {
+            label: 'Favourites',
+            path: '/dashboard/favourites',
+            icon: <Star size={16} />
+        }
     ]
 
     const allLinks = session?.user.role === 'owner' ? ownerLinks : userLinks

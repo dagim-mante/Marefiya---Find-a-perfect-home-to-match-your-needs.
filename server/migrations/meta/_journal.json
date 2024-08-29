@@ -36,6 +36,13 @@
       "when": 1724692909380,
       "tag": "0004_first_captain_america",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1724967123263,
+      "tag": "0005_nappy_thanos",
+      "breakpoints": true
     }
   ]
 }

@@ -146,6 +146,24 @@ export const reviews = pgTable('reviews' , {
     }
 })
 
+export const favourites = pgTable('favourites', {
+  id: serial("id").primaryKey(),
+  assetId: serial("assetId").notNull().references(() => assets.id, {onDelete: 'cascade'}),
+  userId: text("userId").notNull().references(() => users.id, {onDelete: 'cascade'}),
+  created: timestamp("created").defaultNow()
+})
+
+export const favouritesRelations = relations(favourites, ({one}) => ({
+  user: one(users, {
+    fields: [favourites.userId],
+    references: [users.id]
+  }),
+  asset: one(assets, {
+    fields: [favourites.assetId],
+    references: [assets.id]
+  })
+}))
+
 export const reviewRelations = relations(reviews, ({one}) => ({
   user: one(users, {
     fields: [reviews.userId],
@@ -158,13 +176,15 @@ export const reviewRelations = relations(reviews, ({one}) => ({
 }))
 
 export const userRelations = relations(users, ({many}) => ({
-  reviews: many(reviews)
+  reviews: many(reviews),
+  favourites: many(favourites)
 }))
 
 export const assetRelations = relations(assets, ({many}) => ({
   assetImages: many(assetImages),
   assetTags: many(assetTags),
-  reviews: many(reviews)
+  reviews: many(reviews),
+  favourites: many(favourites)
 }))
 
 export const assetImagesRelations = relations(assetImages, ({one}) => ({

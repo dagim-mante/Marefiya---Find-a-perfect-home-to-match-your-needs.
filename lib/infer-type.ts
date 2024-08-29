@@ -26,9 +26,13 @@ import type {
     }
   >
   export type AssetWithImagesAndTags = InferResultType<"assets",
-    {assetImages:true, assetTags:true}  
+    {assetImages:true, assetTags:true, favourites: true}  
   >
 
   export type ReviewWithUser = InferResultType<"reviews", 
     {user: true}
   >
+
+  export type FavouritesWithAsset = InferResultType<"favourites", 
+  {asset: {with: {assetImages: true , assetTags: true, favourites: true}}}
+>
