@@ -36,3 +36,7 @@ import type {
   export type FavouritesWithAsset = InferResultType<"favourites", 
   {asset: {with: {assetImages: true , assetTags: true, favourites: true}}}
 >
+
+export type AssetWithFavouritesAndViews = InferResultType<"assets", 
+  {favourites: true , views: true, assetImages: true}
+>
