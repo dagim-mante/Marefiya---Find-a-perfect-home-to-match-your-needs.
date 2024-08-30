@@ -3,7 +3,7 @@
 import { ReviewWithUser } from "@/lib/infer-type"
 import { getAverageReview } from "@/lib/utils"
 import { Card, CardDescription, CardTitle } from "../ui/card"
-import { useMemo } from "react"
+import { useEffect, useMemo } from "react"
 import { Progress } from "../ui/progress"
 
 export default function ReviewsChart({
@@ -23,6 +23,7 @@ export default function ReviewsChart({
         })
         return ratingValues.map(rating => (rating / totalReviews) * 100).reverse()
     }, [reviews])
+
     return (
         <Card className="flex flex-col p-8 rounded-md gap-4">
             <div className="flex flex-col gap-2">

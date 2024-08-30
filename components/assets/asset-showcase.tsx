@@ -36,6 +36,21 @@ export default function AssetShowcase({
         })
     }, [api])
 
+    useEffect(() => {
+        fetch('http://localhost:3000/api/update-views', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'applcation/json'
+            },
+            body: JSON.stringify({assetId: images[0].assetId})
+        })
+            .then(response => response.json())
+            .then(res => {
+                console.log(res)
+            }).catch(err => console.log(err ))
+
+    }, [images[0].assetId])
+
     const updatePreview = (index:number) => {
         api?.scrollTo(index)
     }

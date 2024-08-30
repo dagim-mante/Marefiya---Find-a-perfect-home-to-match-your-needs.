@@ -43,6 +43,13 @@
       "when": 1724967123263,
       "tag": "0005_nappy_thanos",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1725022028649,
+      "tag": "0006_silent_bloodscream",
+      "breakpoints": true
     }
   ]
 }

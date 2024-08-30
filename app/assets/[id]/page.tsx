@@ -19,7 +19,7 @@ export default async function AssetDetails({
             assetTags: true,
             reviews: true
         }
-    }) 
+    })
     if(asset){
         const reviewAvg = getAverageReview(asset.reviews.map(review => review.rating))
         return (
