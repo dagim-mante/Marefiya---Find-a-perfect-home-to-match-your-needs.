@@ -1,39 +1,67 @@
 'use client'
-import {InstantSearchNext} from 'react-instantsearch-nextjs'
-import { SearchBox, Hits } from "react-instantsearch"
-import { searchClient } from '@/lib/algolia-client'
+import { SearchBox, Hits, useHits } from "react-instantsearch"
 import Link from 'next/link'
 import { Card } from '../ui/card'
 import {motion, AnimatePresence} from 'framer-motion'
-import { useMemo, useState } from 'react'
+import { FormEvent, useMemo, useState } from 'react'
 import { Badge } from '../ui/badge'
-import { formatPrice } from '@/lib/utils'
+import { cn, formatPrice } from '@/lib/utils'
+import { Search } from 'lucide-react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import InstantSearchProvider from "./instant-search-provides"
+import { useAssetsStore } from "@/lib/useAssetsStore"
 
 export function Algolia(){
     const [active, setActive] = useState(false)
     const MCard = useMemo(() => motion(Card), [])
+    const router = useRouter()
+    const params = useSearchParams()
+
+    const searchMode = params.get('search')
+
     return (
-        <InstantSearchNext
-            future={{
-                persistHierarchicalRootCount: true,
-                preserveSharedStateOnUnmount: true,
-            }}
-            searchClient={searchClient}
-            indexName='assets'
-        >
+        <InstantSearchProvider>
             <div className="relative">
                 <SearchBox
+                    placeholder='Search for assets...'
                     onFocus={() => setActive(true)}
                     onBlur={() => {
                         setTimeout(() => {
                             setActive(false)
                         }, 200)
                     }}
+                    submitIconComponent={({ classNames }) => (
+                        <div className={cn(classNames.submitIcon, 'px-3 h-full py-1 flex items-center justify-center')}>
+                            <Search size={15}/>
+                        </div>
+                    )}
+                    loadingIconComponent={({ classNames }) => (
+                        <div className={classNames.loadingIcon}>
+                            <AnimatePresence>
+                                <MCard
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    exit={{ opacity: 0, scale: 0.8 }}
+                                    className="p-2 absolute w-full z-50 overflow-y-scroll max-h-96"
+                                >
+                                    <p className="font-medium ml-2 text-xs">Searching...</p>
+                                </MCard>
+                            </AnimatePresence>
+                        </div>
+                    )}
                     classNames={{
                         input: 'h-full w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
-                        submitIcon: "hidden",
+                        submitIcon: "absolute top-0 right-0",
                         form: "relative mb-4",
                         resetIcon: "hidden",
+                    }}
+                    onSubmit={(e: FormEvent) => {
+                        console.log('submitted')
+                        if(e.target[0].value !== ''){
+                            router.push(`?search=${e.target[0].value}`)
+                            return
+                        }
+                        router.push(`/`)
                     }}
                 />
                 {active && (
@@ -44,12 +72,22 @@ export function Algolia(){
                             exit={{ opacity: 0, scale: 0.8 }}
                             className="absolute w-full z-50 overflow-y-scroll max-h-96"
                         >
-                            <Hits hitComponent={Hit} className="rounded-md" />
+                            {!searchMode ? (
+                                <Hits 
+                                    hitComponent={Hit}
+                                    className="rounded-md"
+                                />
+                            ) : (
+                                <Hits 
+                                    hitComponent={Hit}
+                                    className="rounded-md"
+                                />
+                            )}
                         </MCard>
                     </AnimatePresence>
                 )}
             </div>
-        </InstantSearchNext>
+        </InstantSearchProvider>
     )
 }
 

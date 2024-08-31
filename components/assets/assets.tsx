@@ -20,6 +20,8 @@ import * as z from "zod"
 import { favouriteSchema } from "@/types/favourite-schema"
 import { Session } from "next-auth"
 import { removedFavourite } from "@/server/actions/remove-favourite"
+import { useAssetsStore } from "@/lib/useAssetsStore"
+import { useMemo } from "react"
 
 export default function Assets({
     assets,
@@ -28,6 +30,13 @@ export default function Assets({
     assets:AssetWithImagesAndTags[],
     session: Session | null
 }){
+
+    const {assets: storedAssets, toFilterAssetsIds, setAssets} = useAssetsStore()
+
+    // useMemo(() => {
+    //     setAssets(assets)
+    // }, [])
+
     const {status, execute} = useAction(createFavourite, {
         onSuccess: ({data}) => {
             if(data?.error){
