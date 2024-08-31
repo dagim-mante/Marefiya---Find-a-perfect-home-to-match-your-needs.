@@ -9,7 +9,8 @@ export default async function Home() {
     with: {
       assetImages: true,
       assetTags: true,
-      favourites: true
+      favourites: true,
+      reviews: true
     },
     orderBy: (assets, {desc}) => [desc(assets.id)]
   })

@@ -1,12 +1,12 @@
 'use client'
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { FavouritesWithAsset } from "@/lib/infer-type";
 import { formatPrice } from "@/lib/utils";
 import { removedFavourite } from "@/server/actions/remove-favourite";
 import { favouriteSchema } from "@/types/favourite-schema";
+import { Heart, MapPin, MessageCircle } from "lucide-react";
 import { Session } from "next-auth";
 import { useAction } from "next-safe-action/hooks";
 import Image from "next/image";
@@ -54,57 +54,77 @@ export default function FavouritesList({
     }
 
     return (
-        <main className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {assets.map(asset => (
-                <div
-                    key={asset.id}
-                    className="flex flex-col rounded-md h-full bg-red-300"
-                >
-                    <Carousel className="h-4/5">
-                        <CarouselContent>
-                            ${asset.asset.assetImages.map(assetImage => (
-                                <CarouselItem key={assetImage.id}>
-                                    <Image 
-                                        src={assetImage.url}
-                                        alt={asset.asset.title}
-                                        height={450}
-                                        width={600}
-                                        className="h-full rounded-md"
-                                        loading='lazy'
-                                    />
-                                </CarouselItem>
-                            ))}
-                        </CarouselContent>
-                    </Carousel>
-                    <Button
-                        disabled={removeStatus === 'executing'}
-                        onClick={() => {
-                            removeFromFavourites(
-                                isInmyFavourite(asset.asset.favourites, session?.user.id)!,
-                                asset.asset.id,
-                                session.user.id!
-                            )
-                        }}
-                    >
-                        Remove from favourites
-                    </Button>
-                    <Link  href={`/assets/${asset.asset.id}`} className="py-4">
-                        <div className="flex items-center justify-between py-2">
-                            <div className="text-xs">
-                                <h2 className="font-bold">{asset.asset.title}</h2>
-                                <p className="text-muted">For {`${asset.asset.type?.slice(0,1).toUpperCase()}${asset.asset.type?.slice(1)}`}</p>
+       <Card>
+            <CardHeader>
+                <CardTitle>Your Favourites</CardTitle>
+                <CardDescription>Here are your favourite assets.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <main className="max-w-screen-xl mx-auto p-4 sm:p-4 md:p-8">
+                {assets.length !== 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+                        {assets.map(asset => (
+                            <div key={asset.id} className="rounded overflow-hidden shadow-lg flex flex-col">
+                                <div className="relative h-64">
+                                        <Image width="96" height="95" className="w-full h-full"
+                                            src={asset.asset.assetImages[0].url}
+                                            alt={asset.asset.title} />
+                                        <div
+                                            className="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25">
+                                        </div>
+                                    {session ? (
+                                        <>
+                                            {isInmyFavourite(asset.asset.favourites, session.user.id) ? (
+                                                <span
+                                                    onClick={() => {
+                                                        removeFromFavourites(
+                                                            isInmyFavourite(asset.asset.favourites, session.user.id)!,
+                                                            asset.id,
+                                                            session.user.id
+                                                        )
+                                                    }}
+                                                >
+                                                    <Heart className="text-xs absolute top-0 right-0 bg-transparent p-0 cursor-pointer text-transparent mt-3 mr-3 fill-red-500 transition duration-300 ease-in-out" />
+                                                </span>
+                                            ): null}
+                                        </>
+                                    ): null}
+                                </div>
+                                <div className="px-6 py-3">
+                                    <Link 
+                                        href={`/assets/${asset.assetId}`}
+                                        className="font-medium text-lg inline-block hover:text-primary transition duration-200 ease-in-out mb-2"
+                                    >
+                                        {asset.asset.title}
+                                    </Link>
+                                    <div className="flex items-center justify-between">
+                                        <Badge>
+                                            {`${asset.asset.type?.slice(0, 1).toUpperCase()}${asset.asset.type?.slice(1)}`}
+                                        </Badge>
+                                        <p className="font-bold text-xs">
+                                            {formatPrice(asset.asset.price, asset.asset.type, asset.asset.rentType)}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="px-6 py-3 flex flex-row items-center justify-between gap-1">
+                                    <span className="py-1 text-xs font-regular dark:text-muted-foreground text-gray-900 mr-1 flex flex-row items-center">
+                                        <MapPin />
+                                        <span className="ml-1">Akaki Kality, Addis Ababa</span>
+                                    </span>
+
+                                    <span className="py-1 text-xs font-regular dark:text-muted-foreground text-gray-900 mr-1 flex flex-row items-center">
+                                        <MessageCircle />
+                                        <span className="ml-1">{asset.asset.reviews.length} Reviews</span>
+                                    </span>
+                                </div>
                             </div>
-                            <div>
-                                <Badge variant={'secondary'}>
-                                    <p className="font-medium text-xs" >
-                                        {formatPrice(asset.asset.price, asset.asset.type, asset.asset.rentType)}    
-                                    </p>
-                                </Badge>
-                            </div>
-                        </div>
-                    </Link>
-                </div>
-            ))}
-        </main>
+                        ))}
+                    </div>
+                ) : (
+                    <h2>No Assets.</h2>
+                )}
+                </main>
+            </CardContent>
+       </Card> 
     )
 }

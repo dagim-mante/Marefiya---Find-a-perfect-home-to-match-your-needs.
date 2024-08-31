@@ -17,7 +17,8 @@ export default async function Favourites(){
                 with: {
                     assetImages: true,
                     assetTags: true,
-                    favourites: true
+                    favourites: true,
+                    reviews: true
                 }
             }
         }

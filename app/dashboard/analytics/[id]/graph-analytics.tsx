@@ -70,7 +70,7 @@ export default function GraphAnalytics({
     }, [bookmarkfilter]) 
     
     return (
-        <div className="flex lg:flex-row flex-col">
+        <div className="flex lg:flex-row flex-col gap-4">
             <Card className="flex-1 shrink-0 h-full">
             <CardHeader>
                 <CardTitle>Your Views: {viewActiveTotal}</CardTitle>
