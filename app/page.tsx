@@ -1,5 +1,5 @@
 import Assets from "@/components/assets/assets";
-import ReviewsForm from "@/components/reviews/review-form";
+import HeroSection from "@/components/home/hero-section";
 import { db } from "@/server";
 import { auth } from "@/server/auth";
 
@@ -17,6 +17,7 @@ export default async function Home() {
 
   return (
     <>
+      <HeroSection />
       <Assets assets={data} session={session} />
     </>
   );

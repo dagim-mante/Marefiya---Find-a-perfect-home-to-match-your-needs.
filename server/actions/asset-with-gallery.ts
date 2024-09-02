@@ -16,6 +16,7 @@ const client = algoliasearch(
     process.env.ALGOLIA_ADMIN!
 )
 const algoliaIndex = client.initIndex('assets')
+const algoliaQuerySuggest = client.initIndex('assets_query_suggestions')
 
 const action = createSafeActionClient()
 export const CreateGalleryAndTags = action
@@ -59,6 +60,11 @@ export const CreateGalleryAndTags = action
                         price: newAsset.price,
                         type: newAsset.type
                     })
+                    algoliaQuerySuggest.saveObject({
+                        objectID: newAsset.id.toString(),
+                        id: newAsset.id,
+                        query: newAsset.title,
+                    })
                 }
                 revalidatePath('/dashboard/assets')
                 return {success: 'Your Gallery and tags updated.'}
@@ -91,6 +97,11 @@ export const CreateGalleryAndTags = action
                         description: newAsset.description,
                         price: newAsset.price,
                         type: newAsset.type
+                    })
+                    algoliaQuerySuggest.saveObject({
+                        objectID: newAsset.id.toString(),
+                        id: newAsset.id,
+                        query: newAsset.title,
                     })
                 }
                 revalidatePath('/dashboard/assets')
