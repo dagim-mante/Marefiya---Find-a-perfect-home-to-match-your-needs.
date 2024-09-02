@@ -1,6 +1,5 @@
 import Assets from "@/components/assets/assets";
 import ReviewsForm from "@/components/reviews/review-form";
-import { Algolia } from "@/components/search/algolia";
 import { db } from "@/server";
 import { auth } from "@/server/auth";
 
@@ -18,7 +17,6 @@ export default async function Home() {
 
   return (
     <>
-      <Algolia />
       <Assets assets={data} session={session} />
     </>
   );
