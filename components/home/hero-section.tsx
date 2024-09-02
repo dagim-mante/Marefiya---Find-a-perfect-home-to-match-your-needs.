@@ -5,6 +5,7 @@ import { Autocomplete } from "../search/AutoComplete"
 import { useLazyRef } from "@/lib/useLazyRef"
 import {searchClient} from "@/lib/search-client"
 import {createQuerySuggestionsPlugin} from '@algolia/autocomplete-plugin-query-suggestions'
+import { createLocalStorageRecentSearchesPlugin } from '@algolia/autocomplete-plugin-recent-searches'
 import { AutocompleteItem, AutocompleteItemAction } from "../search/AutoCompleteItem"
 import {
     ClockIcon,
@@ -62,6 +63,55 @@ export default function HeroSection(){
         })
     )
 
+    const getRecentSearchesPlugin = useLazyRef(() =>
+      createLocalStorageRecentSearchesPlugin({
+        key: 'RECENT_SEARCH',
+        limit: 5,
+        transformSource({ source, onTapAhead, onRemove }) {
+          return {
+            ...source,
+            templates: {
+              item({ item, components }) {
+                return (
+                  <AutocompleteItem
+                    router={router}
+                    href={`/search/?query=${item.label}`}
+                    icon={ClockIcon}
+                    actions={
+                      <>
+                        <AutocompleteItemAction
+                          icon={TrashIcon}
+                          title="Remove this search"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            event.stopPropagation();
+  
+                            onRemove(item.label);
+                          }}
+                        />
+                        <AutocompleteItemAction
+                          icon={ArrowUpLeftIcon}
+                          title={`Fill query with "${item.label}"`}
+                          onClick={(event) => {
+                            event.preventDefault();
+                            event.stopPropagation();
+  
+                            onTapAhead(item);
+                          }}
+                        />
+                      </>
+                    }
+                  >
+                    <components.ReverseHighlight hit={item} attribute="label" />
+                  </AutocompleteItem>
+                );
+              },
+            },
+          };
+        },
+      })
+    );
+
     return (
         <div className="w-full">
             <Autocomplete
@@ -94,6 +144,7 @@ export default function HeroSection(){
                 }}
                 plugins={[
                     getQuerySuggestionsPlugin(),
+                    getRecentSearchesPlugin()
                 ]}
 
             />
