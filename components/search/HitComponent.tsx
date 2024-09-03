@@ -1,12 +1,19 @@
+'use client'
 import Image from 'next/image';
 import Link from 'next/link';
 import { Highlight } from 'react-instantsearch'
 
 import { formatPrice } from '@/lib/utils'
 
-import type { Hit } from 'instantsearch.js';
+import type { Hit, BaseHit} from 'instantsearch.js';
 import { Heart, MapPin } from 'lucide-react';
-import { Badge } from '../ui/badge';
+import { Badge } from '../ui/badge'
+import { useAction } from 'next-safe-action/hooks'
+import { createFavourite } from '@/server/actions/add-favourite'
+import { toast } from 'sonner'
+import { removedFavourite } from '@/server/actions/remove-favourite'
+import { Session } from 'next-auth'
+
 type ProductItem = {
     query: string,
     id: number,
@@ -17,11 +24,94 @@ type ProductItem = {
     image: string
 }
 
+type FavouriteType = { 
+    id: number;
+    userId: string;
+    assetId: number;
+    created: Date | null; 
+}
+
 type HitComponentProps = {
-  hit: Hit<ProductItem>;
+  hit: Hit<BaseHit>,
+  session?: Session,
+  favourites?: FavouriteType[]
 };
 
-export function HitComponent({ hit }: HitComponentProps) {
+export function HitComponent({hit, session, favourites}:  HitComponentProps){
+    
+    const {status, execute} = useAction(createFavourite, {
+        onSuccess: ({data}) => {
+            if(data?.error){
+                toast.error(data.error)
+            }
+            if(data?.success){
+                toast.success(data.success)
+            }
+        },
+        onError: () => {
+            toast.error('Something went wrong')
+        },
+        onExecute: () => {
+            toast.loading('Adding to favourites...')
+        },
+        onSettled: () => {
+            toast.dismiss()
+        }
+    })
+    
+    const {status: removeStatus, execute: removeExecute} = useAction(removedFavourite, {
+        onSuccess: ({data}) => {
+            if(data?.error){
+                toast.error(data.error)
+            }
+            if(data?.success){
+                toast.success(data.success)
+            }
+        },
+        onError: () => {
+            toast.error('Something went wrong')
+        },
+        onExecute: () => {
+            toast.loading('Removing from favourites...')
+        },
+        onSettled: () => {
+            toast.dismiss()
+        }
+    })
+    
+    const addToFavourite = (assetIdx: number, userIdx: string) => {
+        execute({
+            userId: userIdx,
+            assetId: assetIdx
+        })
+    }
+    const removeFromFavourites = (favoriteIdx: number, assetIdx: number, userIdx: string) => {
+        removeExecute({
+            id: favoriteIdx,
+            userId: userIdx,
+            assetId: assetIdx
+        })
+    }
+
+
+    const isInmyFavourite = ( favourites:FavouriteType[] | null, userId: string, assetId: number) => {
+        if(!favourites){
+            return null
+        }
+        for(let i = 0; i < favourites.length; i++){
+            if(favourites[i].userId === userId && favourites[i].assetId === assetId){
+                return {
+                    exists: true,
+                    favId: favourites[i].id
+                }
+            }
+        }
+        return {
+            exists: false,
+            favId: undefined
+        }
+    }
+
   return (
     <div className="rounded overflow-hidden shadow-lg flex flex-col">
         <div className="relative h-64">
@@ -31,9 +121,31 @@ export function HitComponent({ hit }: HitComponentProps) {
             <div
                 className="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25">
             </div>
-            <span>
-                <Heart className="text-xs absolute top-0 right-0 bg-transparent p-0 cursor-pointer text-transparent mt-3 mr-3 fill-red-500 transition duration-300 ease-in-out" />
-            </span>
+            {session ? (
+                <>
+                    {isInmyFavourite(favourites!, session.user.id, hit.id)?.exists ? (
+                        <span
+                            onClick={() => {
+                                removeFromFavourites(
+                                    isInmyFavourite(favourites!, session.user.id, hit.id)?.favId!,
+                                    hit.id,
+                                    session.user.id
+                                )
+                            }}
+                        >
+                            <Heart className="text-xs absolute top-0 right-0 bg-transparent p-0 cursor-pointer text-transparent mt-3 mr-3 fill-red-500 transition duration-300 ease-in-out" />
+                        </span>
+                    ) : (
+                        <span
+                            onClick={() => {
+                                addToFavourite(hit.id,  session.user.id)
+                            }}
+                        >
+                            <Heart className="text-xs absolute top-0 right-0 bg-transparent p-0 cursor-pointer text-white mt-3 mr-3 hover:fill-red-500 hover:text-transparent transition duration-300 ease-in-out" />
+                        </span>
+                    )}
+                </>
+            ): null}
         </div>
         <div className="px-6 py-3">
             <Link 
