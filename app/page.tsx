@@ -3,6 +3,8 @@ import HeroSection from "@/components/home/hero-section";
 import { db } from "@/server";
 import { auth } from "@/server/auth";
 
+export const revalidate = 60
+
 export default async function Home() {
   const data = await db.query.assets.findMany({
     with: {

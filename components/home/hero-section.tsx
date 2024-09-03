@@ -9,9 +9,6 @@ import { createLocalStorageRecentSearchesPlugin } from '@algolia/autocomplete-pl
 import { AutocompleteItem, AutocompleteItemAction } from "../search/AutoCompleteItem"
 import {
     ClockIcon,
-    Bars3Icon,
-    ShoppingBagIcon,
-    XMarkIcon,
     MagnifyingGlassIcon,
     ArrowUpLeftIcon,
     TrashIcon,
