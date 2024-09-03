@@ -22,7 +22,6 @@ type HitComponentProps = {
 };
 
 export function HitComponent({ hit }: HitComponentProps) {
-    console.log("HERE", hit)
   return (
     <div className="rounded overflow-hidden shadow-lg flex flex-col">
         <div className="relative h-64">

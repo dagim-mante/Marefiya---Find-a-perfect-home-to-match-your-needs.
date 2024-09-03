@@ -129,7 +129,7 @@ export default function HeroSection(){
                   input:
                     'block w-full rounded-md border-primary py-3 pl-10 sm:text-sm',
                   panel:
-                    'absolute mt-2 lg:py-1 z-10 ring-1 ring-black ring-opacity-5 text-sm text-gray-500 bg-white lg:shadow-lg rounded-md overflow-y-scroll lg:max-h-96 md:text-md lg:text-md text-xs',
+                    'dark:bg-gray-600 dark:text-white dark:hover:text-gray-500 absolute mt-2 lg:py-1 z-10 ring-1 ring-black ring-opacity-5 text-sm text-gray-500 bg-white lg:shadow-lg rounded-md overflow-y-scroll lg:max-h-96 md:text-md lg:text-md text-xs',
                 }}
                 navigator={{
                     navigate({itemUrl}){

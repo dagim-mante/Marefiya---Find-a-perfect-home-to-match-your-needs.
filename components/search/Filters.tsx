@@ -14,7 +14,7 @@ function ListWrapper({ header, children, ...divProps }: WrapperProps) {
   return (
     <div {...divProps}>
       <fieldset>
-        <legend className="block text-sm font-medium text-gray-900">
+        <legend className="block text-sm font-medium dark:text-gray-300 text-gray-900">
           {header}
         </legend>
         {children}

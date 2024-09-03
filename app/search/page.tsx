@@ -147,7 +147,7 @@ export default function Search(){
                   input:
                       'block w-full rounded-md border-primary py-3 pl-10 sm:text-sm',
                   panel:
-                      'absolute mt-2 lg:py-1 z-10 ring-1 ring-black ring-opacity-5 text-sm text-gray-500 bg-white lg:shadow-lg rounded-md overflow-y-scroll lg:max-h-96 md:text-md lg:text-md text-xs',
+                      'dark:bg-gray-600 dark:text-white dark:hover:text-gray-500 absolute mt-2 lg:py-1 z-10 ring-1 ring-black ring-opacity-5 text-sm text-gray-500 bg-white lg:shadow-lg rounded-md overflow-y-scroll lg:max-h-96 md:text-md lg:text-md text-xs',
                   }}
                   navigator={{
                       navigate({itemUrl}){
@@ -207,42 +207,42 @@ export default function Search(){
                 </div>
               </Dialog>
 
-              <div className="bg-gray-100 border-t border-gray-200">
-          <div className="sm:flex sm:items-center mx-auto sm:px-6 lg:px-8 max-w-7xl">
-            <div className="border-t border-gray-200 sm:border-0 flex-grow sm:flex sm:items-center">
-              <h3 className="text-sm px-7 py-5 sm:p-0 flex-shrink-0 font-medium text-gray-500">
-                Active filters
-              </h3>
-              <div
-                aria-hidden="true"
-                className="hidden h-5 w-px bg-gray-300 sm:ml-4 sm:block"
-              />
-              <NoFiltersLabel />
-              <CurrentRefinements
-                transformItems={(items) =>
-                  items.map((item) => {
-                    return {
-                      ...item,
-                      label: FILTER_LABEL_MAP[item.label] || item.label,
-                    };
-                  })
-                }
-                classNames={{
-                  root: 'relative before:content-[""] before:absolute before:w-6 before:h-full before:bg-gradient-to-r before:from-gray-100 after:content-[""] after:absolute after:w-6 after:h-full after:top-0 after:right-0 after:bg-gradient-to-l after:from-gray-100',
-                  list: 'flex space-x-4 px-6 pb-4 sm:py-4 overflow-auto',
-                  noRefinementList: '!p-0 sm:mt-0.5 sm:h-16',
-                  item: 'flex flex-shrink-0 rounded-full border border-gray-200 bg-white py-1.5 pl-3 pr-2 text-sm font-medium text-gray-900',
-                  categoryLabel: 'ml-2 font-normal text-gray-700',
-                  delete:
-                    'ml-1 inline-flex items-center w-4 h-4 flex-shrink-0 rounded-full p-1 hover:!bg-gray-200 text-xs text-gray-400 hover:text-gray-500',
-                }}
-              />
-            </div>
-          </div>
-        </div>
+              <div className="dark:bg-secondary border-t border-white dark:border-gray-500 mt-2">
+                <div className="sm:flex sm:items-center mx-auto sm:px-6 lg:px-8 max-w-7xl">
+                  <div className="border-t border-white dark:border-gray-500 sm:border-0 flex-grow sm:flex sm:items-center">
+                    <h3 className="text-sm px-7 py-5 sm:p-0 flex-shrink-0 font-medium text-gray-500">
+                      Active filters
+                    </h3>
+                    <div
+                      aria-hidden="true"
+                      className="hidden h-5 w-px bg-gray-300 sm:ml-4 sm:block"
+                    />
+                    <NoFiltersLabel />
+                    <CurrentRefinements
+                      transformItems={(items) =>
+                        items.map((item) => {
+                          return {
+                            ...item,
+                            label: FILTER_LABEL_MAP[item.label] || item.label,
+                          };
+                        })
+                      }
+                      classNames={{
+                        root: 'relative before:content-[""] before:absolute before:w-6 before:h-full before:bg-gradient-to-r  after:content-[""] after:absolute after:w-6 after:h-full after:top-0 after:right-0 after:bg-gradient-to-l',
+                        list: 'flex space-x-4 px-6 pb-4 sm:py-4 overflow-auto',
+                        noRefinementList: '!p-0 sm:mt-0.5 sm:h-16',
+                        item: 'flex flex-shrink-0 rounded-full border border-gray-200 bg-white py-1.5 pl-3 pr-2 text-sm font-medium text-gray-900',
+                        categoryLabel: 'ml-2 font-normal text-gray-700',
+                        delete:
+                          'ml-1 inline-flex items-center w-4 h-4 flex-shrink-0 rounded-full p-1 hover:!bg-gray-200 text-xs text-gray-400 hover:text-gray-500',
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
 
               <div className="mx-w-2xl mx-auto px-4 lg:max-w-7xl lg:px-8">
-                <div className="pt-12 pb-24 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
+                <div className="pt-4 pb-24 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
                   <aside>
                     <h2 className="sr-only">Filters</h2>
 
@@ -277,7 +277,7 @@ export default function Search(){
                     showPrevious={true}
                     classNames={{
                       list: 'grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3',
-                      item: 'relative bg-white border border-gray-200 rounded-lg flex flex-col overflow-hidden',
+                      item: 'relative bg-white border-0 dark:bg-black/10 rounded-lg flex flex-col overflow-hidden',
                       loadPrevious:
                         'mb-10 h-10 w-full items-center rounded-md border border-gray-300 bg-white px-4 hover:bg-gray-100 focus:border-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-25 focus:ring-offset-1 focus:ring-offset-indigo-600',
                       disabledLoadPrevious: 'hidden',
@@ -307,7 +307,7 @@ function Filters({ type }: Pick<FilterProps, 'type'>) {
           attribute="type"
           limit={8}
           classNames={{
-            list: 'pt-6 space-y-4 lg:space-y-3',
+            list: 'pt-3 space-y-2 lg:space-y-2',
             item: 'flex items-center',
             label: 'cursor-pointer',
             selectedItem: 'font-semibold',
