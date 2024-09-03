@@ -5,6 +5,7 @@ import { getAverageReview } from "@/lib/utils"
 import { Card, CardDescription, CardTitle } from "../ui/card"
 import { useEffect, useMemo } from "react"
 import { Progress } from "../ui/progress"
+import { Star } from "lucide-react"
 
 export default function ReviewsChart({
     reviews
@@ -29,15 +30,18 @@ export default function ReviewsChart({
             <div className="flex flex-col gap-2">
                 <CardTitle>Asset Rating</CardTitle>
                 <CardDescription className="text-lg font-medium">
-                    {averageReview.toFixed(1)} stars
+                    {averageReview.toFixed(1)}/5 stars
                 </CardDescription>
             </div>
             {getRatingByStars.map((rating, index) => (
                 <div key={index} className="flex gap-2 justify-between items-center">
-                    <p className="text-xs font-medium flex gap-1">
-                        {5 - index} <span>stars</span>
+                    <p className="text-sm flex gap-1 font-bold">
+                        {5 - index}.0 <Star size={14} className="mx-1" />
                     </p>
                     <Progress value={rating} />
+                    <p className="text-sm flex gap-1 font-bold">
+                        {rating.toFixed(1)}%
+                    </p>
                 </div>
             ))}
         </Card>
