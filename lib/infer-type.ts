@@ -40,3 +40,5 @@ import type {
 export type AssetWithFavouritesAndViews = InferResultType<"assets", 
   {favourites: true , views: true, assetImages: true}
 >
+
+export type OwnerProfile = InferResultType<"users">
