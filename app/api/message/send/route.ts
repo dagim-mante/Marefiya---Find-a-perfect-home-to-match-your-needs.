@@ -1,5 +1,7 @@
 import { redisDb } from "@/lib/db"
 import { Message, messageValidator } from "@/lib/message-validator"
+import { pusherServer } from "@/lib/pusher"
+import { toPusherKey } from "@/lib/utils"
 import { auth } from "@/server/auth"
 import {nanoid} from "nanoid"
 
@@ -28,6 +30,7 @@ export async function POST(req: Request){
         const message = messageValidator.parse(messageData)
 
         // send the message
+        await pusherServer.trigger(toPusherKey(`chat:${chatId}`), 'incoming_message', message)
         await redisDb.zadd(`chat:${chatId}:messages`, {
             score: timestamp,
             member: message

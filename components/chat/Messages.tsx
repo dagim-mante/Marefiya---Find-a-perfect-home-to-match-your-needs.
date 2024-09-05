@@ -2,11 +2,12 @@
 
 import { OwnerProfile } from "@/lib/infer-type"
 import { Message } from "@/lib/message-validator"
-import { cn } from "@/lib/utils"
+import { pusherClient } from "@/lib/pusher"
+import { cn, toPusherKey } from "@/lib/utils"
 import { format } from "date-fns"
 import { Session } from "next-auth"
 import Image from "next/image"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function Messages({
     intialMessages,
@@ -19,8 +20,22 @@ export default function Messages({
     chatId: string,
     chatPartner: OwnerProfile
 }){
-    const [messages, setMessgaes] = useState<Message[]>(intialMessages)
+    const [messages, setMessages] = useState<Message[]>(intialMessages)
     const scrollDownRef = useRef<HTMLDivElement | null>(null)
+
+    useEffect(() => {
+      pusherClient.subscribe(toPusherKey(`chat:${chatId}`))
+      const handleMessage= (message: Message) => {
+        setMessages(prev => [message, ...prev])
+      }
+
+      pusherClient.bind('incoming_message', handleMessage)
+
+      return () => {
+        pusherClient.unsubscribe(toPusherKey(`chat:${chatId}`))
+        pusherClient.unbind('incoming_message', handleMessage)
+      }
+    }, [chatId])
 
     const formatTime = (timestamp: number) => {
       return format(timestamp, "HH:mm")
