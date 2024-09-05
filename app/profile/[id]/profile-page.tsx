@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/badge"
 import { AssetWithImagesAndTags, OwnerProfile } from "@/lib/infer-type"
-import { formatPrice } from "@/lib/utils"
+import { chatHrefConstructor, formatPrice } from "@/lib/utils"
 import { Heart, MapPin, MessageCircle } from "lucide-react"
 import { Session } from "next-auth"
 import Image from "next/image"
@@ -13,6 +13,7 @@ import { toast } from "sonner"
 import * as z from "zod"
 import { favouriteSchema } from "@/types/favourite-schema"
 import { removedFavourite } from "@/server/actions/remove-favourite"
+import { useRouter } from "next/navigation"
 
 export default function ProfilePage({
     profile,
@@ -25,6 +26,8 @@ export default function ProfilePage({
     session?: Session,
     assets: AssetWithImagesAndTags[]
 }){
+
+    const router = useRouter()
 
     const {status, execute} = useAction(createFavourite, {
         onSuccess: ({data}) => {
@@ -113,6 +116,9 @@ export default function ProfilePage({
                         </div>
                         {(session && id !== session.user.id)? (
                             <button
+                                onClick={() => {
+                                    router.push(`/chat/${chatHrefConstructor(id, session.user.id)}`)
+                                }}
                                 className="py-3.5 px-5 flex rounded-full bg-primary hover:bg-primary/75 shadow-sm shadow-transparent transition-all duration-300 w-full items-center justify-center lg:self-start max-w-60">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
