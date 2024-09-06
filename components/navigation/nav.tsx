@@ -4,13 +4,14 @@ import UserButton from './user-button'
 import Link from 'next/link'
 import { LogIn } from 'lucide-react'
 import { Button } from '../ui/button'
+import NavChat from '../chat/NavChat'
 
 export default async function Nav(){
     const session = await auth()
     return (
         <header className='py-8'>
             <nav>
-                <ul className='flex justify-between'>
+                <ul className='flex justify-between items-center'>
                     <li>
                         <Link href={'/'} aria-label='Marefiya'>
                             <Image 
@@ -30,9 +31,16 @@ export default async function Nav(){
                             </Button>
                         </li>
                     ) : (
-                        <li>
-                            <UserButton user={session?.user} expires={session?.expires}/>    
-                        </li>
+                        <div className="flex items-center gap-4">
+                            <li className="relative flex items-center hover:bg-muted">
+                                <NavChat 
+                                    sessionId={session.user.id}
+                                />
+                            </li>
+                            <li>
+                                <UserButton user={session?.user} expires={session?.expires}/>    
+                            </li>
+                        </div>
                     )}
                 </ul>
             </nav>
