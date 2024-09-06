@@ -177,7 +177,7 @@ export default function ProfilePage({
                                             </Link>
                                             <div className="flex items-center justify-between">
                                                 <Badge>
-                                                    {`${asset.type?.slice(0, 1).toUpperCase()}${asset.type?.slice(1)}`}
+                                                    {`For ${asset.type?.slice(0, 1).toUpperCase()}${asset.type?.slice(1)}`}
                                                 </Badge>
                                                 <p className="font-bold text-xs">
                                                     {formatPrice(asset.price, asset.type, asset.rentType)}

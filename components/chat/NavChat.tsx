@@ -37,7 +37,7 @@ export default function NavChat({
                     sessionId={sessionId}
                     senderMessage={message.text}
                 />, {
-                duration: 5000
+                duration: 10000
             })
             setUnseenMessages(prev => [...prev, message])
         }
@@ -49,7 +49,12 @@ export default function NavChat({
         }
     },[pathname, sessionId, router] )
     return (
-        <div className="relative px-2">
+        <div 
+          className="cursor-pointer relative px-2"
+          onClick={() => {
+            router.push('/chat')
+          }} 
+        >
           <AnimatePresence>
             {unseenMessages.length > 0 && (
               <motion.span

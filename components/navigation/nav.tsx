@@ -9,7 +9,7 @@ import NavChat from '../chat/NavChat'
 export default async function Nav(){
     const session = await auth()
     return (
-        <header className='py-8'>
+        <header className='h-28 py-8'>
             <nav>
                 <ul className='flex justify-between items-center'>
                     <li>

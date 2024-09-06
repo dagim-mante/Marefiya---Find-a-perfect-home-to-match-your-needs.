@@ -1,7 +1,8 @@
 import { redisDb } from "@/lib/db"
-import { Message, messageValidator } from "@/lib/message-validator"
+import { Chat, chatArrayValidator, Message, messageValidator } from "@/lib/message-validator"
 import { pusherServer } from "@/lib/pusher"
-import { toPusherKey } from "@/lib/utils"
+import { fetchRedis } from "@/lib/redis-helper"
+import { chatHrefConstructor, toPusherKey } from "@/lib/utils"
 import { db } from "@/server"
 import { auth } from "@/server/auth"
 import { users } from "@/server/schema"
@@ -22,13 +23,15 @@ export async function POST(req: Request){
             return new Response("Unauthorized", {status: 401})
         }
 
-        const reciverId = session.user.id === userId1 ?  userId2: userId1
+        const recieverId = session.user.id === userId1 ?  userId2: userId1
+        const senderId = recieverId === userId1 ?  userId2: userId1 
         const sender = await db.query.users.findFirst({
-            where: eq(users.id, reciverId)
+            where: eq(users.id, senderId)
         })
         if(!sender){
             return new Response("Unauthorized", {status: 401})
         }
+
         const timestamp = Date.now()
         const messageData: Message = {
             id: nanoid(),
@@ -38,9 +41,24 @@ export async function POST(req: Request){
         }
         const message = messageValidator.parse(messageData)
 
+        const existingChatsReciever = await fetchRedis('lrange', `user:${recieverId}:chats`, 0, -1) as Chat[]
+        const existingChatsSender = await fetchRedis('lrange', `user:${senderId}:chats`, 0, -1) as Chat[]
+        
+
+        if(!existingChatsReciever && !existingChatsSender){
+            await redisDb.rpush(`user:${senderId}:chats`, recieverId)
+            await redisDb.rpush(`user:${recieverId}:chats`, senderId)
+        }else{
+            const alreadyChatting = existingChatsReciever?.find(id => id === senderId)
+            if(!alreadyChatting){
+                await redisDb.rpush(`user:${senderId}:chats`, recieverId)
+                await redisDb.rpush(`user:${recieverId}:chats`, senderId)
+            }
+        }
+
         // send the message
         await pusherServer.trigger(toPusherKey(`chat:${chatId}`), 'incoming_message', message)
-        await pusherServer.trigger(toPusherKey(`user:${reciverId}:chats`), 'new_message', {
+        await pusherServer.trigger(toPusherKey(`user:${recieverId}:chats`), 'new_message', {
             ...message,
             senderImg: sender.image,
             senderName: sender.name
@@ -52,6 +70,7 @@ export async function POST(req: Request){
 
         return new Response('OK')
     }catch(error){
+        console.log(error)
         if(error instanceof Error){
             return new Response(error.message, {status: 500})
         }

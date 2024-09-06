@@ -99,7 +99,7 @@ export default function FavouritesList({
                                     </Link>
                                     <div className="flex items-center justify-between">
                                         <Badge>
-                                            {`${asset.asset.type?.slice(0, 1).toUpperCase()}${asset.asset.type?.slice(1)}`}
+                                            {`For ${asset.asset.type?.slice(0, 1).toUpperCase()}${asset.asset.type?.slice(1)}`}
                                         </Badge>
                                         <p className="font-bold text-xs">
                                             {formatPrice(asset.asset.price, asset.asset.type, asset.asset.rentType)}
