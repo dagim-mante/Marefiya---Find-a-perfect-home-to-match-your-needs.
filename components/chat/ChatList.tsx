@@ -75,7 +75,7 @@ export default function ChatList({
                               <div className="flex justify-between">
                               <span className="block ml-2 font-semibold text-gray-900 dark:text-gray-200">{activeChat.name}</span>
                               <span className="block ml-2 text-sm text-gray-600 dark:text-gray-400">
-                                {formatDistance(new Date(), chatWithLastMessage.find(chat => chat.activeChat === activeChat.id)?.lastMessage.timestamp!)}
+                                {formatDistance(new Date(), chatWithLastMessage.find(chat => chat.activeChat === activeChat.id)?.lastMessage.timestamp!) || "..."}
                               </span>
                               </div>
                               <span className="block ml-2 text-sm text-gray-600 dark:text-gray-400">

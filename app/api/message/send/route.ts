@@ -58,8 +58,17 @@ export async function POST(req: Request){
                 await redisDb.lrem(`user:${senderId}:chats`, 1, recieverId)
                 await redisDb.lrem(`user:${recieverId}:chats`, 1, senderId)
                 
-                await redisDb.linsert(`user:${senderId}:chats`, "before", existingChatsSender[0], recieverId)
-                await redisDb.linsert(`user:${recieverId}:chats`, "before", existingChatsReciever[0], senderId)
+                if((existingChatsSender.length - 1) > 1){
+                    await redisDb.linsert(`user:${senderId}:chats`, "before", existingChatsSender[0], recieverId)
+                }else{
+                    await redisDb.rpush(`user:${senderId}:chats`, recieverId)
+                }
+
+                if((existingChatsReciever.length - 1) > 1){
+                    await redisDb.linsert(`user:${recieverId}:chats`, "before", existingChatsReciever[0], senderId)
+                }else{
+                    await redisDb.rpush(`user:${recieverId}:chats`, senderId)
+                }
             }
             await pusherServer.trigger(toPusherKey(`chat:${senderId}`), 'update_chat_order', {})
             await pusherServer.trigger(toPusherKey(`chat:${recieverId}`), 'update_chat_order', {})
