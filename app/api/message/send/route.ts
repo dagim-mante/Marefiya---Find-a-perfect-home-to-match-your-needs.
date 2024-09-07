@@ -49,11 +49,20 @@ export async function POST(req: Request){
             await redisDb.rpush(`user:${senderId}:chats`, recieverId)
             await redisDb.rpush(`user:${recieverId}:chats`, senderId)
         }else{
-            const alreadyChatting = existingChatsReciever?.find(id => id === senderId)
-            if(!alreadyChatting){
+            const alreadyChattingReciever = existingChatsReciever?.find(id => id === senderId)
+            const alreadyChattingSender = existingChatsSender?.find(id => id === recieverId)
+            if(!alreadyChattingReciever && !alreadyChattingSender){
                 await redisDb.rpush(`user:${senderId}:chats`, recieverId)
                 await redisDb.rpush(`user:${recieverId}:chats`, senderId)
+            }else{
+                await redisDb.lrem(`user:${senderId}:chats`, 1, recieverId)
+                await redisDb.lrem(`user:${recieverId}:chats`, 1, senderId)
+                
+                await redisDb.linsert(`user:${senderId}:chats`, "before", existingChatsSender[0], recieverId)
+                await redisDb.linsert(`user:${recieverId}:chats`, "before", existingChatsReciever[0], senderId)
             }
+            await pusherServer.trigger(toPusherKey(`chat:${senderId}`), 'update_chat_order', {})
+            await pusherServer.trigger(toPusherKey(`chat:${recieverId}`), 'update_chat_order', {})
         }
 
         // send the message

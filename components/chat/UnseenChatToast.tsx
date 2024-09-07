@@ -3,6 +3,7 @@
 import { chatHrefConstructor, cn } from "@/lib/utils"
 import { X } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 import { toast } from "sonner"
 
 export default function UnseenChatToast({
@@ -23,7 +24,7 @@ export default function UnseenChatToast({
       className={cn(
         'max-w-md w-full bg-indigo-900 text-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5'
       )}>
-        <a
+        <Link
             onClick={() => toast.dismiss()}
             href={`/chat/${chatHrefConstructor(sessionId, senderId)}`}
             className='flex-1 w-0 p-4'>
@@ -45,7 +46,7 @@ export default function UnseenChatToast({
                 <p className='mt-1 text-sm text-gray-400'>{senderMessage}</p>
             </div>
             </div>
-        </a>
+        </Link>
 
         <div className='flex relative'>
             <button

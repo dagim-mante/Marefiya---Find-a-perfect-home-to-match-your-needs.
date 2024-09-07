@@ -66,7 +66,7 @@
 
 .scrollbar-w-2::-webkit-scrollbar {
   width: 0.25rem;
-  height: 0.25rem;
+  height: 0.15rem;
 }
 
 .scrollbar-track-blue-lighter::-webkit-scrollbar-track {
@@ -77,8 +77,7 @@
 
 .scrollbar-thumb-blue::-webkit-scrollbar-thumb {
   --bg-opacity: 1;
-  background-color: #edf2f7;
-  background-color: rgba(237, 242, 247, var(--bg-opacity));
+  background-color: gray;
 }
 
 .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {

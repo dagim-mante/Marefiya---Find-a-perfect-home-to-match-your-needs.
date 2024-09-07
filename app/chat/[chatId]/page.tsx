@@ -6,7 +6,9 @@ import { db } from "@/server"
 import { auth } from "@/server/auth"
 import { users } from "@/server/schema"
 import { eq } from "drizzle-orm"
+import { ArrowLeft } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 import { notFound, redirect } from "next/navigation"
 
 
@@ -51,44 +53,36 @@ export default async function Chat({
     const intialMessages = await getIntialMessages(chatId)
 
     return (
-        <main className="h-screen">
-            <div className='flex-1 justify-between flex flex-col h-full max-h-[calc(100vh-8rem)]'>
-                <div className='flex sm:items-center justify-between py-3 border-b-2 border-gray-200'>
-                <div className='relative flex items-center space-x-4'>
-                    <div className='relative'>
-                    <div className='relative w-8 sm:w-12 h-8 sm:h-12'>
-                        <Image
-                            fill
-                            referrerPolicy='no-referrer'
-                            src={chatPartner.image!}
-                            alt={`${chatPartner.name} profile picture`}
-                            className='rounded-full'
-                        />
-                    </div>
-                    </div>
-        
-                    <div className='flex flex-col leading-tight'>
-                    <div className='text-xl flex items-center'>
-                        <span className='text-gray-700 mr-3 font-semibold'>
-                        {chatPartner.name}
-                        </span>
-                    </div>
-        
-                    <span className='text-sm text-gray-600'>{chatPartner.email}</span>
-                    </div>
+        <main className="relative w-full flex flex-col h-full">
+            {/* Top Profile */}
+            <div className="relative h-16">
+              <div className="flex items-center p-3 border-b border-gray-300 dark:border-gray-700">
+                <Link href='/chat'>
+                    <ArrowLeft className="w-6 h-6 mr-2"/>
+                </Link>
+                <div className="relative object-cover w-10 h-10">
+                    <Image 
+                        fill
+                        className="relative rounded-full"
+                        src={chatPartner.image!} 
+                        alt={chatPartner.name} 
+                    />
                 </div>
+                <Link 
+                    href={chatPartner.role === 'owner' ? `/profile/${chatPartner.id}` : '#' } 
+                    className="dark:text-gray-200 block ml-2 text-lg font-bold text-gray-600 hover:text-primary"
+                >
+                    {chatPartner.name}
+                </Link>
+              </div>
             </div>
+            
             <Messages 
                 chatId={chatId}
                 chatPartner={chatPartner}
                 intialMessages={intialMessages}
                 session={session}
             />
-            <ChatInput
-                chatId={chatId}
-                chatPartner={chatPartner} 
-            />
-            </div>
         </main>
     )
 }
