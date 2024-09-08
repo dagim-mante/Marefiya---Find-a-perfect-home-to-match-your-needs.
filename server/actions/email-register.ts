@@ -7,13 +7,11 @@ import { eq } from "drizzle-orm"
 import { users } from "../schema"
 import { generateEmailVerificationToken } from "./tokens"
 import { sendVerificationEmail } from "./email"
-import { fetchRedis } from "@/lib/redis-helper"
-import { redisDb } from "@/lib/db"
 
 const action = createSafeActionClient()
 export const RegisterAction = action
     .schema(RegisterSchema)
-    .action(async ({parsedInput: {name, email, password}}) => {
+    .action(async ({parsedInput: {name, email, password, role}}) => {
         const existingUser = await db.query.users.findFirst({
             where: eq(users.email, email)
         })
@@ -29,14 +27,11 @@ export const RegisterAction = action
         const newUser = await db.insert(users).values({
             email,
             name,
-            password: hashedPassword,  
+            password: hashedPassword,
+            role: role!
         }).returning()
 
-        const existsInRedis = await fetchRedis('get', `user:${newUser[0].email}`)
-
-        if(!existsInRedis){
-            await redisDb.sadd(`user:${newUser[0].email}`, newUser[0].id)
-        }
+    
         const verificationToken = await generateEmailVerificationToken(email)
         await sendVerificationEmail(verificationToken[0].email, verificationToken[0].token)
         return {success: 'Verification email sent.'}

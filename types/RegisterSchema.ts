@@ -7,5 +7,6 @@ export const RegisterSchema = z.object({
     email: z.string().email(),
     password: z.string().min(8, {
         message: 'Password must be atleast 8 chaarchters.'
-    })
+    }),
+    role: z.enum(['user', 'owner']).nullable()
 })
