@@ -23,10 +23,15 @@ export default async function Nav(){
                         </Link>
                     </li>
                     {!session ? (
-                        <li>
+                        <li className="flex items-center gap-2">
+                            <Button className="hover:bg-primary hover:text-white" variant={'secondary'} asChild>
+                                <Link className="flex items-center gap-2" href='/auth/login'>
+                                    <LogIn size={12}/> <span>Login</span>
+                                </Link>
+                            </Button>
                             <Button asChild>
-                                <Link className='flex gap-2' href='/auth/login'>
-                                    <LogIn size={16}/> <span>Login</span>
+                                <Link href='/auth/register'>
+                                    <span>Sign up</span>
                                 </Link>
                             </Button>
                         </li>

@@ -61,7 +61,7 @@ export default function RegisterForm(){
                     cardTitle="Create an Account"
                     backButtonText="Already have an account?"
                     backButtonHref="/auth/login"
-                    showSocials
+                    showSocials={role === 'user'}
                 >
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)}>
