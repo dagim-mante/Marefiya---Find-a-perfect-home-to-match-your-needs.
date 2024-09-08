@@ -23,13 +23,15 @@ import { useAction } from "next-safe-action/hooks"
 import Link from "next/link"
 import { AssetWithImagesAndTags } from "@/lib/infer-type"
 import {EditorWrapper} from "./editor-wrapper"
+import { formatPrice } from "@/lib/utils"
 
 type Asset = {
     id: number
     title: string
     imageGalleryAndTags: AssetWithImagesAndTags
     type: string
-    price: number
+    price: number,
+    rentType: string | null
 }
 
 
@@ -155,10 +157,7 @@ export const columns: ColumnDef<Asset>[] = [
     header: 'Price',
     cell: ({row}) => {
         const price = parseFloat(row.getValue('price'))
-        const formattedPrice = new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "USD"
-        }).format(price)
+        const formattedPrice = formatPrice(price, row.original.type, row.original.rentType)
         return (
             <div className="font-medium text-sm">
                 {formattedPrice}

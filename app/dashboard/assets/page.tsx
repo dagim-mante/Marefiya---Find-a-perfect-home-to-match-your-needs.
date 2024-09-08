@@ -29,11 +29,13 @@ export default async function Assets(){
             id: asset.id,
             title: asset.title,
             type: asset.type as string,
+            rentType: asset.rentType as string | null,
             price: asset.price,
             image: placeholder.src,
             imageGalleryAndTags: asset
         } 
     })
+    
     return (
         <div>
             <DataTable data={dataTable} columns={columns} />

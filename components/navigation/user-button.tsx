@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import Image from "next/image"
-import { LogOut, Moon, Settings, Sun, TruckIcon } from "lucide-react"
+import { House, LogOut, Moon, Settings, Star, Sun, TruckIcon } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useState, useEffect } from "react"
 import { Switch } from "../ui/switch"
@@ -71,12 +71,27 @@ export default function UserButton({user, expires}:Session){
                         </span>
                     </div>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className="group py-2 font-medium cursor-pointer ">
-                        <TruckIcon
+                    {user.role === 'owner' ? (
+                        <DropdownMenuItem 
+                            onClick={() => router.push('/dashboard/assets')} 
+                            className="group py-2 font-medium cursor-pointer"
+                        >
+                            <House
+                                size={14}
+                                className="mr-3 group-hover:scale-110 transition-all duration-300 ease-in-out"
+                            />
+                            My Assets
+                        </DropdownMenuItem>
+                    ) : null}
+                    <DropdownMenuItem 
+                        onClick={() => router.push('/dashboard/favourites')} 
+                        className="group py-2 font-medium cursor-pointer"
+                    >
+                        <Star
                             size={14}
-                            className="mr-3 group-hover:translate-x-1 transition-all duration-300 ease-in-out"
+                            className="mr-3 group-hover:fill-red-500 transition-all duration-300 ease-in-out"
                         />
-                        My orders
+                        My Favourite
                     </DropdownMenuItem>
                     <DropdownMenuItem
                         onClick={() => router.push('/dashboard/settings')} 

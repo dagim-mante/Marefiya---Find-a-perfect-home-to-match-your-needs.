@@ -67,8 +67,8 @@ export default function GraphAnalytics({
             return monthlychartbookmark(bookmarkchartItems).reduce((acc, i) => acc + i.bookmarks, 0)
         }
         return weeklyChartBookmark(bookmarkchartItems).reduce((acc, i) => acc + i.bookmarks, 0)
-    }, [bookmarkfilter]) 
-    
+    }, [bookmarkfilter])
+
     return (
         <div className="flex lg:flex-row flex-col gap-4">
             <Card className="flex-1 shrink-0 h-full">

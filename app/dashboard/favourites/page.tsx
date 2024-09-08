@@ -23,6 +23,7 @@ export default async function Favourites(){
             }
         }
     })
+  
     return (
         <FavouritesList assets={assets} session={session}/>
     )
