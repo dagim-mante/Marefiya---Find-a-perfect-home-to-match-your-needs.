@@ -38,7 +38,6 @@ export default async function Profile({
 
     const session = await auth()
 
-
     return (
         <ProfilePage id={id} profile={profile} assets={data} session={session!} />
     )

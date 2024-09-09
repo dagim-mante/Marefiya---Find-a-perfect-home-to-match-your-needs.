@@ -1,8 +1,9 @@
+import { Card } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
 export default function AuthLoading(){
     return (
-        <div className="bg-gray-200 h-[calc(100vh-9rem)] rounded-md py-10 px-5">
+        <Card className="h-[calc(100vh-9rem)] rounded-md py-10 px-5">
             <Skeleton className="w-60 h-10 mb-6"/>
             
             <div className="flex flex-col gap-2">
@@ -24,6 +25,6 @@ export default function AuthLoading(){
             <div className="flex justify-center">
                 <Skeleton className="w-40 h-5 mt-5"/>
             </div>
-        </div>
+        </Card>
     )
 }
