@@ -1,6 +1,6 @@
 'use client'
 
-import {Configure, CurrentRefinements, InfiniteHits, InstantSearch, RangeInput, RefinementList, useCurrentRefinements, useSearchBox} from 'react-instantsearch'
+import {CurrentRefinements, InfiniteHits, InstantSearch, RangeInput, RefinementList, useCurrentRefinements, useSearchBox} from 'react-instantsearch'
 import {searchClient} from '@/lib/search-client'
 import { useRouter, useSearchParams } from "next/navigation"
 import { Autocomplete } from "@/components/search/AutoComplete"
@@ -19,7 +19,7 @@ import {
   } from '@heroicons/react/24/outline';
 import { HitComponent } from '@/components/search/HitComponent'
 import { singleIndex } from 'instantsearch.js/es/lib/stateMappings'
-import { useState } from 'react'
+import {  useState } from 'react'
 import { Filter, FilterProps } from '@/components/search/Filters'
 import { Dialog } from '@headlessui/react'
 import { Session } from 'next-auth'
