@@ -157,7 +157,7 @@ export default function AddAssetForm({
                                 <FormLabel>Asset Type</FormLabel>
                                 <FormControl>
                                     <RadioGroup
-                                    defaultValue={field.value}
+                                    defaultValue={field.value as string | undefined}
                                     defaultChecked={true}
                                     onValueChange={field.onChange}
                                     className="flex flex-col space-y-1"
@@ -206,7 +206,7 @@ export default function AddAssetForm({
                                                 render={({ field }) => (
                                                     <FormItem>
                                                     <FormControl>
-                                                        <Select defaultValue={field.value} onValueChange={field.onChange}>
+                                                        <Select defaultValue={field.value as string | undefined} onValueChange={field.onChange}>
                                                             <SelectTrigger className="w-[180px]">
                                                                 <SelectValue placeholder="Per" />
                                                             </SelectTrigger>
