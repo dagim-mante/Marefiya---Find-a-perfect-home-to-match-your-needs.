@@ -179,7 +179,7 @@ export default function SearchFilters({
               />
           </div>
           <InstantSearch
-              searchClient={searchClient}
+              searchClient={searchClient} // @ts-nocheck
               indexName='assets'
               key={(params.get('query') || '')}
               future={{

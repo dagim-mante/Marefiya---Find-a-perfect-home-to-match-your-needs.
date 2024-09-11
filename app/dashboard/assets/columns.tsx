@@ -21,14 +21,14 @@ import { deleteAsset } from "@/server/actions/delete-asset"
 import { toast } from "sonner"
 import { useAction } from "next-safe-action/hooks"
 import Link from "next/link"
-import { AssetWithImagesAndTags } from "@/lib/infer-type"
+import { AssetWithImagesAndTagsTable } from "@/lib/infer-type"
 import {EditorWrapper} from "./editor-wrapper"
 import { formatPrice } from "@/lib/utils"
 
 type Asset = {
     id: number
     title: string
-    imageGalleryAndTags: AssetWithImagesAndTags
+    imageGalleryAndTags: AssetWithImagesAndTagsTable
     type: string
     price: number,
     rentType: string | null
@@ -94,7 +94,7 @@ export const columns: ColumnDef<Asset>[] = [
     accessorKey: 'imageGalleryAndTags',
     header: 'Gallery & Tags',
     cell: ({row}) => {
-        const galleryAndTags = row.getValue('imageGalleryAndTags') as AssetWithImagesAndTags
+        const galleryAndTags = row.getValue('imageGalleryAndTags') as AssetWithImagesAndTagsTable
         let imagesAndtagsExists = true
         if(galleryAndTags.assetImages.length === 0){
             imagesAndtagsExists = false

@@ -1,6 +1,6 @@
 'use client'
 
-import { AssetWithImagesAndTags } from "@/lib/infer-type"
+import { AssetWithImagesAndTagsTable } from "@/lib/infer-type"
 import {
     Dialog,
     DialogContent,
@@ -37,7 +37,7 @@ export const EditorWrapper = ({
     children
 }: {
     editMode: boolean,
-    galleryAndTags: AssetWithImagesAndTags,
+    galleryAndTags: AssetWithImagesAndTagsTable,
     assetId: number,
     children: React.ReactNode
 }) => {
