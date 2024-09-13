@@ -36,7 +36,7 @@ export const sendVerificationEmail = async(email:string, token:string) => {
                 }
             }
         </style>
-        <div id="container" style="display:flex;flex-direction: column;margin: 0;padding:20px;">
+        <div id="container" style="margin: 0;padding:20px;">
             <img src="logo.svg" alt="Marefiya logo" style="width: 100px;height: 50px;"/>
             <h1 style="margin: 0; padding-left: 20px;margin-top: 20px;font-size: 28px;font-weight: bold;">Welcome to Marefiya</h1>
             <p style="margin: 0;padding-left: 20px;margin-top: 10px;font-size: 16px;font-weight: lighter;">We are happy that you have joined our community, we have created your account you just have to confirm your email by clicking the button below.</p>
@@ -84,7 +84,7 @@ export const sendPasswordResetEmail = async(email:string, token:string) => {
             }
         }
       </style>
-      <div id="container" style="display:flex;flex-direction: column;margin: 0;padding:20px;">
+      <div id="container" style="margin: 0;padding:20px;">
         <img src="logo.svg" alt="Marefiya logo" style="width: 100px;height: 50px;"/>
         <h1 style="margin: 0; padding-left: 20px;margin-top: 20px;font-size: 28px;font-weight: bold;">Reset your password</h1>
         <p style="margin: 0;padding-left: 20px;margin-top: 10px;font-size: 16px;font-weight: lighter;">If you requested to reset your password reset your password click the button below if you didn't ignore this Email.</p>
@@ -120,7 +120,7 @@ export const sendTwoFactorEmail = async(email:string, token:string) => {
             box-sizing: border-box;
         }
       </style>
-      <div id="container" style="display:flex;flex-direction: column;margin: 0;padding:20px;">
+      <div id="container" style="margin: 0;padding:20px;">
           <img src="logo.svg" alt="Marefiya logo" style="width: 100px;height: 50px;"/>
           <h1 style="margin: 0; padding-left: 20px;margin-top: 20px;font-size: 28px;font-weight: bold;">2FA Token</h1>
           <p style="margin: 0;padding-left: 20px;margin-top: 10px;font-size: 16px;font-weight: lighter;">You have tried to login into your account. Since your account is two factor authentication protected here is your 6 digit code.</p>
