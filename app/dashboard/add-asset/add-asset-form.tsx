@@ -55,7 +55,7 @@ export default function AddAssetForm({
             type: 'rent',
             price: 0,
             owner: session.user.id,
-            rentType: 'night'
+            rentType: 'month'
         }
     })
 

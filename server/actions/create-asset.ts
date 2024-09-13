@@ -18,6 +18,7 @@ export const CreateAsset = action
         if(!title || !description || !type || !price || !owner || !rentType){
             return {error: 'Incomplete form.'}
         }
+        console.log(id, title, description, type, price, owner, rentType)
         try{
             if(type === "sell"){
                 rentType = null
@@ -33,7 +34,11 @@ export const CreateAsset = action
                     type,
                     price,
                     rentType,
-                }).where(eq(assets.id, id) && eq(assets.owner, owner)).returning()
+                }).where(
+                    and(
+                        eq(assets.id, id),
+                        eq(assets.owner, owner)
+                    )).returning()
                 revalidatePath('/dashboard/assets')
                 return {success: `Asset ${editedAsset[0].title} updated!`}
             }else{
