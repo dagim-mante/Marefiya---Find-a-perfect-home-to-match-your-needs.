@@ -4,10 +4,8 @@ import { and, eq, gt } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req:NextRequest) => {
-    console.log("req.ip", req)
     const ip = req.headers.get("x-real-ip")
-    console.log("ip", ip)
-    const userIp = req.ip || 'some ip'
+    const userIp = ip || 'some ip'
     const {assetId} = await req.json()
     if(!assetId || !userIp){
         return NextResponse.json({error: 'no asset given'}, {status: 404})
