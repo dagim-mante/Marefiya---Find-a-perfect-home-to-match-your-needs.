@@ -2,9 +2,16 @@ import { db } from "@/server";
 import { views } from "@/server/schema";
 import { and, eq, gt } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
+import { ipAddress } from "@vercel/edge"
+
+export const config = {
+    runtime: "edge",
+};
 
 export const POST = async (req:NextRequest) => {
-    console.log("req.ip", req.ip)
+    console.log("req.ip", req)
+    const ip = ipAddress(req)
+    console.log("ip", ip)
     const userIp = req.ip || 'some ip'
     const {assetId} = await req.json()
     if(!assetId || !userIp){
