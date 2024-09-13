@@ -7,6 +7,7 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel"
+import getBaseURL from "@/lib/base-url";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react"
@@ -37,7 +38,8 @@ export default function AssetShowcase({
     }, [api])
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/update-views', {
+        const domain = getBaseURL()
+        fetch(`${domain}/api/update-views`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'applcation/json'
