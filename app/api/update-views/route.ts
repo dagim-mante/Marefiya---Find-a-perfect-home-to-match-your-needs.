@@ -4,6 +4,7 @@ import { and, eq, gt } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req:NextRequest) => {
+    console.log("req.ip", req.ip)
     const userIp = req.ip || 'some ip'
     const {assetId} = await req.json()
     if(!assetId || !userIp){
