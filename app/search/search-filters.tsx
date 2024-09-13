@@ -62,7 +62,6 @@ export default function SearchFilters({
                     templates: {
                         ...source.templates,
                         item({item, components}){
-                            console.log('HERE', item)
                             return (
                                 <AutocompleteItem
                                     router={router}
@@ -179,7 +178,7 @@ export default function SearchFilters({
               />
           </div>
           <InstantSearch
-              searchClient={searchClient} // @ts-nocheck
+              searchClient={searchClient}
               indexName='assets'
               key={(params.get('query') || '')}
               future={{

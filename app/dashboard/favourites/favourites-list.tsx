@@ -109,7 +109,7 @@ export default function FavouritesList({
                                 <div className="px-6 py-3 flex flex-row items-center justify-between gap-1">
                                     <span className="py-1 text-xs font-regular dark:text-muted-foreground text-gray-900 mr-1 flex flex-row items-center">
                                         <MapPin />
-                                        <span className="ml-1">Akaki Kality, Addis Ababa</span>
+                                        <span className="ml-1">{asset.asset.location}</span>
                                     </span>
 
                                     <span className="py-1 text-xs font-regular dark:text-muted-foreground text-gray-900 mr-1 flex flex-row items-center">

@@ -1,4 +1,4 @@
-import algoliasearch from 'algoliasearch/lite'
+import algoliasearch from 'algoliasearch'
 
 export const searchClient = algoliasearch(
     process.env.NEXT_PUBLIC_ALGOLIA_ID!,

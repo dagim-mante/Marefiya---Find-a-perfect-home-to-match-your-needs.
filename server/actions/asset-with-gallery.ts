@@ -58,7 +58,7 @@ export const CreateGalleryAndTags = action
                     algoliaIndex.saveObject({
                         objectID: newAsset.id.toString(),
                         id: newAsset.id,
-                        title: newAsset.title,
+                        query: newAsset.title,
                         description: newAsset.description,
                         price: newAsset.price,
                         type: newAsset.type,
@@ -67,7 +67,8 @@ export const CreateGalleryAndTags = action
                         _geoloc: {
                             lat: newAsset.latitude,
                             lng: newAsset.longitude
-                        }
+                        },
+                        location: newAsset.location
                     })
                     algoliaQuerySuggest.saveObject({
                         objectID: newAsset.id.toString(),
@@ -105,7 +106,7 @@ export const CreateGalleryAndTags = action
                     algoliaIndex.saveObject({
                         objectID: newAsset.id.toString(),
                         id: newAsset.id,
-                        title: newAsset.title,
+                        query: newAsset.title,
                         description: newAsset.description,
                         price: newAsset.price,
                         type: newAsset.type,
@@ -114,7 +115,8 @@ export const CreateGalleryAndTags = action
                         _geoloc: {
                             lat: newAsset.latitude,
                             lng: newAsset.longitude
-                        }
+                        },
+                        location: newAsset.location
                     })
                     algoliaQuerySuggest.saveObject({
                         objectID: newAsset.id.toString(),

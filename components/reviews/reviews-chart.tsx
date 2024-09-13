@@ -40,7 +40,7 @@ export default function ReviewsChart({
                     </p>
                     <Progress value={rating} />
                     <p className="text-sm flex gap-1 font-bold">
-                        {rating.toFixed(1)}%
+                        {rating ? rating.toFixed(1) : 0.0}%
                     </p>
                 </div>
             ))}

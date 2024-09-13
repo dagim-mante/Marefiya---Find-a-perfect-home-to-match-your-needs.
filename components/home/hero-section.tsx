@@ -31,7 +31,6 @@ export default function HeroSection(){
                     templates: {
                         ...source.templates,
                         item({item, components}){
-                            console.log('HERE', item)
                             return (
                                 <AutocompleteItem
                                     router={router}

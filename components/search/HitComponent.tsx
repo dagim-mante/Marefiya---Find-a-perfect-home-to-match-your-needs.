@@ -38,7 +38,6 @@ type HitComponentProps = {
 };
 
 export function HitComponent({hit, session, favourites}:  HitComponentProps){
-    
     const {status, execute} = useAction(createFavourite, {
         onSuccess: ({data}) => {
             if(data?.error){
@@ -173,7 +172,7 @@ export function HitComponent({hit, session, favourites}:  HitComponentProps){
         <div className="px-6 py-3 flex flex-row items-center justify-between gap-1">
             <span className="py-1 text-xs font-regular dark:text-muted-foreground text-gray-900 mr-1 flex flex-row items-center">
                 <MapPin />
-                <span className="ml-1">Akaki Kality, Addis Ababa</span>
+                <span className="ml-1">{hit.location}</span>
             </span>
             <div></div>
         </div>
