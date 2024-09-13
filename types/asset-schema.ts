@@ -8,5 +8,8 @@ export const AssetSchema = z.object({
     price: z.coerce.number({message: 'Price must be a number.'})
             .positive({message: 'Price must be postive.'}),
     rentType: z.enum(["night", "week", "month"]).nullable(),
-    owner: z.string()
+    owner: z.string(),
+    location: z.string(),
+    latitude: z.number(),
+    longitude: z.number()
 })

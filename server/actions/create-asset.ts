@@ -11,11 +11,11 @@ import { auth } from "../auth"
 const action = createSafeActionClient()
 export const CreateAsset = action
     .schema(AssetSchema)
-    .action(async ({parsedInput: {id, title, description, type, price, owner, rentType}}) => {
+    .action(async ({parsedInput: {id, title, description, type, price, owner, rentType, location, latitude, longitude}}) => {
         const session = await auth()
         if(!session || session?.user.role !== 'owner')return {error: 'You don\'t have access to this action.'}
         
-        if(!title || !description || !type || !price || !owner || !rentType){
+        if(!title || !description || !type || !price || !owner || !location || !latitude || !longitude){
             return {error: 'Incomplete form.'}
         }
         console.log(id, title, description, type, price, owner, rentType)
@@ -34,6 +34,9 @@ export const CreateAsset = action
                     type,
                     price,
                     rentType,
+                    location,
+                    latitude,
+                    longitude
                 }).where(
                     and(
                         eq(assets.id, id),
@@ -48,7 +51,10 @@ export const CreateAsset = action
                     type,
                     price,
                     owner,
-                    rentType
+                    rentType,
+                    location,
+                    latitude,
+                    longitude
                 }).returning()
                 revalidatePath('/dashboard/assets')
                 return {success: `Asset ${newAsset[0].title} added!`}

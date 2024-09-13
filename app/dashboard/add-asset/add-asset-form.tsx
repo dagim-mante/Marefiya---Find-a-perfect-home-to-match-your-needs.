@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { DollarSign } from "lucide-react"
+import { DollarSign, MapPin } from "lucide-react"
 import Tiptap from "./tiptap"
 import {zodResolver} from '@hookform/resolvers/zod'
 import { useAction } from "next-safe-action/hooks"
@@ -37,12 +37,19 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { getAsset } from "@/server/actions/get-asset"
-import { useEffect } from "react"
+import { useEffect, useMemo, useState } from "react"
+import dynamic from "next/dynamic"
+import { Skeleton } from "@/components/ui/skeleton"
   
+const NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/search?"
 
 export default function AddAssetForm({
     session
 }: {session: Session}){
+
+    const [searchText, setSearchText] = useState("")
+    const [placeList, setPlaceList] = useState([])
+    const [selectedPosition, setSelectedPosition] = useState<number[] | null>(null)
 
     const router = useRouter()
     const searchParams = useSearchParams()
@@ -55,7 +62,10 @@ export default function AddAssetForm({
             type: 'rent',
             price: 0,
             owner: session.user.id,
-            rentType: 'month'
+            rentType: 'month',
+            location: 'Piassa, Addis Ababa',
+            latitude: 9.034459397466916,
+            longitude: 38.752732794669676
         }
     })
 
@@ -75,6 +85,10 @@ export default function AddAssetForm({
                 form.setValue('type', data.success.type)
                 form.setValue('price', data.success.price)
                 form.setValue('rentType', data.success.rentType)
+                form.setValue('location', data.success.location)
+                form.setValue('latitude', data.success.latitude)
+                form.setValue('longitude', data.success.longitude)
+                setSelectedPosition([data.success.latitude, data.success.longitude])
             }
         }
     }
@@ -109,6 +123,14 @@ export default function AddAssetForm({
         execute(values)
     }
 
+    const Map = useMemo(() => dynamic(
+        () => import('@/components/maps/add-asset-map/'),
+        {
+            loading: () => <Skeleton className="w-full h-72" />,
+            ssr: false
+        }
+    ), [])
+    
     return (
         <Card>
             <CardHeader>
@@ -149,6 +171,117 @@ export default function AddAssetForm({
                                 </FormItem>
                             )}
                         />
+                        <FormField
+                            control={form.control}
+                            name="location"
+                            render={({ field }) => (
+                                <FormItem>
+                                <FormLabel>Asset Location</FormLabel>
+                                <FormControl>
+                                    <div className="flex items-center gap-2">
+                                        <MapPin size={34} className="p-2 bg-muted rounded-md" />
+                                        <Input
+                                            type="text"
+                                            placeholder="Location of property"
+                                            {...field}
+                                        />
+                                            <FormField
+                                                control={form.control}
+                                                name="latitude"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="number"
+                                                            placeholder="Latitude"
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <FormField
+                                                control={form.control}
+                                                name="longitude"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="number"
+                                                            placeholder="Longitude"
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                    </div>
+                                </FormControl>
+                                <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <div className="relative w-full h-80">
+                            <div className="relative">
+                                <Input 
+                                    type="text"
+                                    placeholder="Search location near you..."
+                                    className="w-full px-2 py-1 mb-2"
+                                    value={searchText}
+                                    onChange={(e) => {
+                                        setSearchText(e.target.value)
+                                        const params = {
+                                            q: searchText,
+                                            format: "json",
+                                            addressdetails: '1',
+                                            polygon_geojson: '0',
+                                        };
+                                        const queryString = new URLSearchParams(params).toString();
+                                        fetch(`${NOMINATIM_BASE_URL}${queryString}`, {
+                                            method: 'GET',
+                                            redirect: 'follow'
+                                        })
+                                        .then((response) => response.text())
+                                        .then((result) => {
+                                            console.log(JSON.parse(result));
+                                            setPlaceList(JSON.parse(result))
+                                        })
+                                        .catch((err) => console.log("err: ", err));
+                                
+                                    }}
+                                 />
+                                 <div className="max-h-36 transition duration-300 ease-in-out overflow-y-scroll bg-gray-200 dark:bg-gray-500 absolute z-[50000] flex flex-col gap-1 w-full">
+                                    {placeList.map(place => {
+                                        return (
+                                            <div 
+                                                className="z-[50000] dark:bg-gray-200 cursor-pointer border-b-2 border-gray-800 dark:border-gray-500 hover:text-gray-600 hover:bg-gray-100 px-2 py-1 text-gray-500"
+                                                key={place?.place_id}
+                                                onClick={() => {
+                                                    const lat = parseFloat(place?.lat)
+                                                    const lon = parseFloat(place?.lon)
+                                                    setSelectedPosition([lat, lon])
+                                                    form.setValue('location', `${place.address.county}, ${place.address.city ? place.address.city : place.address.state}`)
+                                                    form.setValue('latitude', lat)
+                                                    form.setValue('longitude', lon)
+                                                    setPlaceList([])
+                                                }}
+                                            >
+                                                {place.display_name}
+                                            </div>
+                                        )
+                                    })}
+                                 </div>
+                            </div>
+                            <Map 
+                                posix={[form.getValues('latitude'), form.getValues('longitude')]} 
+                                selectedPosition={selectedPosition}
+                                setSelectedPosition={setSelectedPosition}
+                                form={form}
+                            />
+                        </div>
+
                         <FormField
                             control={form.control}
                             name="type"

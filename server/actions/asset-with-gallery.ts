@@ -52,13 +52,22 @@ export const CreateGalleryAndTags = action
                     where: eq(assets.id, assetId)
                 })
                 if(newAsset){
-                    algoliaIndex.partialUpdateObject({
+                    const newAssetImage = await db.query.assetImages.findFirst({
+                        where: eq(assetImages.assetId, newAsset.id)
+                    })
+                    algoliaIndex.saveObject({
                         objectID: newAsset.id.toString(),
                         id: newAsset.id,
                         title: newAsset.title,
                         description: newAsset.description,
                         price: newAsset.price,
-                        type: newAsset.type
+                        type: newAsset.type,
+                        rentType: newAsset.rentType,
+                        image: newAssetImage?.url,
+                        _geoloc: {
+                            lat: newAsset.latitude,
+                            lng: newAsset.longitude
+                        }
                     })
                     algoliaQuerySuggest.saveObject({
                         objectID: newAsset.id.toString(),
@@ -90,13 +99,22 @@ export const CreateGalleryAndTags = action
                     where: eq(assets.id, assetId)
                 })
                 if(newAsset){
+                    const newAssetImage = await db.query.assetImages.findFirst({
+                        where: eq(assetImages.assetId, newAsset.id)
+                    })
                     algoliaIndex.saveObject({
                         objectID: newAsset.id.toString(),
                         id: newAsset.id,
                         title: newAsset.title,
                         description: newAsset.description,
                         price: newAsset.price,
-                        type: newAsset.type
+                        type: newAsset.type,
+                        rentType: newAsset.rentType,
+                        image: newAssetImage?.url,
+                        _geoloc: {
+                            lat: newAsset.latitude,
+                            lng: newAsset.longitude
+                        }
                     })
                     algoliaQuerySuggest.saveObject({
                         objectID: newAsset.id.toString(),

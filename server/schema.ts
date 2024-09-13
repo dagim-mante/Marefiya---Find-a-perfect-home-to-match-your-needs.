@@ -114,7 +114,10 @@ export const assets = pgTable("assets", {
   price: real("price").notNull(),
   created: timestamp("created").defaultNow(),
   type: AssetTypeEnum("type").default("rent"),
-  rentType: RentTypeEnum("rentType").default("month")
+  rentType: RentTypeEnum("rentType").default("month"),
+  location: text("location").notNull(),
+  latitude: real("latitude").notNull(),
+  longitude: real("longitude").notNull()
 })
 
 export const assetImages = pgTable("assetImages", {
