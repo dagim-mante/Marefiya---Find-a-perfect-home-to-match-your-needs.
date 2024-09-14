@@ -28,7 +28,7 @@ function ResetCenterView(props: any){
 
     useEffect(() => {
         if(selectedPosition){
-            map.setView(
+            map.flyTo(
                 L.latLng(selectedPosition[0], selectedPosition[1]),
                 17,
                 {

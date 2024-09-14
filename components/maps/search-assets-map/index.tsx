@@ -50,7 +50,11 @@ export default function SearchMap(Map: MapProps){
       const MapEventsHandler = () => {
         useMapEvents({ 
             zoomend: onViewChange,
-            dragend: onViewChange 
+            dragend: onViewChange,
+            click(e) {
+                setSelectedPosition([e.latlng.lat, e.latlng.lng])
+                onViewChange(e)
+            },
         })
         return null
       }
@@ -61,7 +65,7 @@ export default function SearchMap(Map: MapProps){
     
         useEffect(() => {
             if(selectedPosition){
-                map.setView(
+                map.flyTo(
                     L.latLng(selectedPosition[0], selectedPosition[1]),
                     14,
                     {
@@ -126,6 +130,7 @@ export default function SearchMap(Map: MapProps){
                                                 const lat = parseFloat(place?.lat)
                                                 const lon = parseFloat(place?.lon)
                                                 setSelectedPosition([lat, lon])
+                                                setSearchText(place.display_name)
                                                 setPlaceList([])
                                             }}
                                         >
@@ -140,7 +145,7 @@ export default function SearchMap(Map: MapProps){
                             center={posix}
                             zoom={11}
                             scrollWheelZoom={true}
-                            style={{ position: "relative", width: "100%", height: "100%"}}
+                            style={{ position: "relative", width: "100%", height: "100%", zIndex: 51}}
                         >
                             <TileLayer
                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

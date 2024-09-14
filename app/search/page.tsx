@@ -13,6 +13,7 @@ export default async function Search(){
             where: eq(favourites.userId, session.user.id)
         })
     }
+    
     return (
         <SearchFilters session={session!} favourites={data!} />
     )
