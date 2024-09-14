@@ -38,9 +38,7 @@ export default function SearchMap(Map: MapProps){
     const [placeList, setPlaceList] = useState([])
     const [selectedPosition, setSelectedPosition] = useState(null)
 
-    // const { items, refine } = useGeoSearch();
-
-    // console.log("items", items)
+    const { items, refine } = useGeoSearch();
 
     function onViewChange({ target }) {
         refine({
@@ -168,8 +166,8 @@ export default function SearchMap(Map: MapProps){
                                     </Popup>
                                 </Marker>
                             ))}
-                            {/* <ResetCenterView selectedPosition={selectedPosition}/>
-                            <MapEventsHandler /> */}
+                            <ResetCenterView selectedPosition={selectedPosition}/>
+                            <MapEventsHandler />
                         </MapContainer>
                     </div>
                 </div>
