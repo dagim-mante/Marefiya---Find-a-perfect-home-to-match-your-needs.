@@ -21,8 +21,8 @@ import {
 import { Map as MapLucide, MapPin } from "lucide-react"
 import { DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { useHits } from "react-instantsearch";
+import { useEffect, useState } from "react";
+import { useGeoSearch } from "react-instantsearch";
 import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
 
@@ -36,10 +36,46 @@ export default function SearchMap(Map: MapProps){
     const { posix } = Map
     const [searchText, setSearchText] = useState('')
     const [placeList, setPlaceList] = useState([])
+    const [selectedPosition, setSelectedPosition] = useState(null)
 
-    const { items, sendEvent } = useHits();
+    // const { items, refine } = useGeoSearch();
 
-    console.log("items", items)
+    // console.log("items", items)
+
+    function onViewChange({ target }) {
+        refine({
+          northEast: target.getBounds().getNorthEast(),
+          southWest: target.getBounds().getSouthWest(),
+        });
+      }
+
+      const MapEventsHandler = () => {
+        useMapEvents({ 
+            zoomend: onViewChange,
+            dragend: onViewChange 
+        })
+        return null
+      }
+
+      function ResetCenterView(props: any){
+        const {selectedPosition} = props
+        const map = useMap()
+    
+        useEffect(() => {
+            if(selectedPosition){
+                map.setView(
+                    L.latLng(selectedPosition[0], selectedPosition[1]),
+                    14,
+                    {
+                        animate: true
+                    }
+                )
+                setSelectedPosition(null)
+            }
+        }, [selectedPosition])
+        return null
+      }
+    
 
     return (
         <Drawer>
@@ -91,6 +127,7 @@ export default function SearchMap(Map: MapProps){
                                             onClick={() => {
                                                 const lat = parseFloat(place?.lat)
                                                 const lon = parseFloat(place?.lon)
+                                                setSelectedPosition([lat, lon])
                                                 setPlaceList([])
                                             }}
                                         >
@@ -131,6 +168,8 @@ export default function SearchMap(Map: MapProps){
                                     </Popup>
                                 </Marker>
                             ))}
+                            {/* <ResetCenterView selectedPosition={selectedPosition}/>
+                            <MapEventsHandler /> */}
                         </MapContainer>
                     </div>
                 </div>
