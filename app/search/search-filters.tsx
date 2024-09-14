@@ -19,10 +19,12 @@ import {
   } from '@heroicons/react/24/outline';
 import { HitComponent } from '@/components/search/HitComponent'
 import { singleIndex } from 'instantsearch.js/es/lib/stateMappings'
-import {  useState } from 'react'
+import {  useMemo, useState } from 'react'
 import { Filter, FilterProps } from '@/components/search/Filters'
 import { Dialog } from '@headlessui/react'
 import { Session } from 'next-auth'
+import dynamic from 'next/dynamic'
+import { Skeleton } from '@/components/ui/skeleton'
 
 const FILTER_LABEL_MAP: Record<string, string> = {
   type: 'Type',
@@ -138,6 +140,14 @@ export default function SearchFilters({
         },
       })
     );
+
+    const Map = useMemo(() => dynamic(
+      () => import('@/components/maps/search-assets-map'),
+      {
+          loading: () => <Skeleton className="w-16 h-10"/>,
+          ssr: false
+      }
+  ), [])
 
     return (
       <main className="max-w-screen-xl mx-auto p-4 sm:p-4 md:p-8">
@@ -272,7 +282,7 @@ export default function SearchFilters({
                         aria-hidden="true"
                       />
                     </button>
-
+                    <Map posix={[9.034459397466916,38.752732794669676]} />
                     <div className="hidden lg:block divide-y divide-gray-200 space-y-10">
                       <Filters type="list" />
                     </div>
