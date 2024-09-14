@@ -27,7 +27,8 @@ export const users = pgTable("user", {
     email: text("email").notNull(),
     password: text("password").notNull(),
     emailVerified: timestamp("emailVerified", { mode: "date" }),
-    image: text("image"),
+    image: text("image").notNull().default('https://utfs.io/f/ez2eGPgh5yPHRqyddGKJgsdkimrNyB7E92IOtTCf4PhDZb3G'),
+    bio: text('bio'),
     twoFactorEnabled: boolean("twofactorEnabled").default(false),
     role: RoleEnum("roles").default("user")
 })

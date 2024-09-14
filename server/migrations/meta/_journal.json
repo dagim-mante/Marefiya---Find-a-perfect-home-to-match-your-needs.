@@ -64,6 +64,13 @@
       "when": 1726254134758,
       "tag": "0008_nasty_the_leader",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1726356771763,
+      "tag": "0009_spotty_satana",
+      "breakpoints": true
     }
   ]
 }
