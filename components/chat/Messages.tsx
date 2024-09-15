@@ -42,7 +42,7 @@ export default function Messages({
       return format(timestamp, "HH:mm")
     }
     return (
-      <div className="relative h-[calc(100vh-14.6rem)] ">
+      <div className="relative h-[calc(100vh-16.4rem)] ">
           <div
               id='messages'
               className='h-full relative flex flex-1 flex-col-reverse gap-4 p-3 overflow-y-scroll scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch'

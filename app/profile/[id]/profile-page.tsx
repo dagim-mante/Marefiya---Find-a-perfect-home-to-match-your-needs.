@@ -101,16 +101,16 @@ export default function ProfilePage({
                 />
                 <div className="w-full max-w-7xl mx-auto px-6 md:px-8">
                     <div className="flex items-center justify-center sm:justify-start relative z-10 mb-5">
-                            <Image 
-                                src={profile.image!}
-                                width={150}
-                                height={200}
-                                alt="user-avatar-image"
-                                 className="border-4 border-solid border-white dark:border-gray-700 rounded-full"
-                            />
+                        <Image 
+                            src={profile.image!}
+                            width={100}
+                            height={100}
+                            className="w-32 h-32 border-4 border-solid border-white dark:border-gray-700 rounded-full"
+                            alt="user-avatar-image"
+                        />
                     </div>
                     <div className="flex items-center justify-center flex-col sm:flex-row max-sm:gap-5 sm:justify-between mb-5">
-                        <div className="block">
+                        <div className="block w-full">
                             <h3 className="font-manrope font-bold text-4xl text-gray-900 dark:text-gray-300 mb-1 max-sm:text-center">{profile.name}</h3>
                             <p className="font-normal text-base leading-7 text-gray-500  max-sm:text-center w-4/5">{profile.bio ? profile.bio : 'My Bio...'}</p>
                         </div>
@@ -175,8 +175,8 @@ export default function ProfilePage({
                                             >
                                                 {asset.title}
                                             </Link>
-                                            <div className="flex items-center justify-between">
-                                                <Badge>
+                                            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2">
+                                                <Badge className="w-fit">
                                                     {`For ${asset.type?.slice(0, 1).toUpperCase()}${asset.type?.slice(1)}`}
                                                 </Badge>
                                                 <p className="font-bold text-xs">
@@ -184,10 +184,10 @@ export default function ProfilePage({
                                                 </p>
                                             </div>
                                         </div>
-                                        <div className="px-6 py-3 flex flex-row items-center justify-between gap-1">
+                                        <div className="px-6 lg:py-3 py-1 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-1">
                                             <span className="py-1 text-xs font-regular dark:text-muted-foreground text-gray-900 mr-1 flex flex-row items-center">
                                                 <MapPin />
-                                                <span className="ml-1">Akaki Kality, Addis Ababa</span>
+                                                <span className="ml-1">{asset.location}</span>
                                             </span>
 
                                             <span className="py-1 text-xs font-regular dark:text-muted-foreground text-gray-900 mr-1 flex flex-row items-center">

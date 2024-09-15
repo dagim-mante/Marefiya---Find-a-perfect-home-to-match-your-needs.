@@ -19,6 +19,7 @@ export default async function Nav(){
                                 src='/logo.svg'
                                 width={40}
                                 height={35}
+                                priority
                             />
                         </Link>
                     </li>

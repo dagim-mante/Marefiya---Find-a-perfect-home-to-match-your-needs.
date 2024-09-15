@@ -60,7 +60,7 @@ export default function UserButton({user, expires}:Session){
                         <Image
                             src={user.image}
                             alt={user.name!}
-                            className="rounded-full"
+                            className="h-10 w-10 rounded-full"
                             width={36}
                             height={36}
                         />
@@ -91,7 +91,7 @@ export default function UserButton({user, expires}:Session){
                             size={14}
                             className="mr-3 group-hover:fill-red-500 transition-all duration-300 ease-in-out"
                         />
-                        My Favourite
+                        My Favourites
                     </DropdownMenuItem>
                     <DropdownMenuItem
                         onClick={() => router.push('/dashboard/settings')} 

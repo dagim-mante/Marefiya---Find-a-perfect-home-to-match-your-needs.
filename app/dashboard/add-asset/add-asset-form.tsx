@@ -245,7 +245,6 @@ export default function AddAssetForm({
                                         })
                                         .then((response) => response.text())
                                         .then((result) => {
-                                            console.log(JSON.parse(result));
                                             setPlaceList(JSON.parse(result))
                                         })
                                         .catch((err) => console.log("err: ", err));

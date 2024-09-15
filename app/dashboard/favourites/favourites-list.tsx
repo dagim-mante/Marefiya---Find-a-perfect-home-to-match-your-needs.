@@ -97,8 +97,8 @@ export default function FavouritesList({
                                     >
                                         {asset.asset.title}
                                     </Link>
-                                    <div className="flex items-center justify-between">
-                                        <Badge>
+                                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2">
+                                        <Badge className="w-fit">
                                             {`For ${asset.asset.type?.slice(0, 1).toUpperCase()}${asset.asset.type?.slice(1)}`}
                                         </Badge>
                                         <p className="font-bold text-xs">
@@ -106,7 +106,7 @@ export default function FavouritesList({
                                         </p>
                                     </div>
                                 </div>
-                                <div className="px-6 py-3 flex flex-row items-center justify-between gap-1">
+                                <div className="px-6 lg:py-3 py-1 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-1">
                                     <span className="py-1 text-xs font-regular dark:text-muted-foreground text-gray-900 mr-1 flex flex-row items-center">
                                         <MapPin />
                                         <span className="ml-1">{asset.asset.location}</span>

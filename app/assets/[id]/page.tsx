@@ -55,7 +55,7 @@ export default async function AssetDetails({
                             </div>
                             <Separator className="my-2"/>
                             {owner ? (
-                                <div className="flex items-center gap-3">
+                                <div className="flex flex-wrap items-center gap-3">
                                     <Link href={`/profile/${owner?.id}`} className="hover:text-primary">
                                         <div className="flex items-start mt-4">
                                             <Image 
@@ -94,7 +94,7 @@ export default async function AssetDetails({
                             <div className="mt-4">
                                 <h3 className="text-xl font-bold dark:text-gray-300 text-gray-800">About the asset</h3>
                                 <div
-                                    className="text-small pl-4 mt-2 text-sm dark:text-gray-400 text-gray-800 overflow-hidden"
+                                    className="text-wrap text-small pl-4 mt-2 text-sm dark:text-gray-400 text-gray-800 overflow-hidden"
                                     dangerouslySetInnerHTML={{ __html: asset.description }}
                                 ></div>
                             </div>               

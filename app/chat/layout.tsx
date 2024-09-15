@@ -47,7 +47,7 @@ export default async function ChatLayout({
     }
   }
     return (
-      <div className="container mx-auto">
+      <div className="mx-auto">
         <div className="h-[calc(100vh-9rem)] max-w-7xl lg:container mx-auto">
           <div className="min-h-full min-w-full border border-gray-200 dark:border-gray-700 rounded lg:grid lg:grid-cols-3">
             <DynamicChatLayout chatWithLastMessage={chatWithLastMessage} children={children} chats={chats} session={session} />

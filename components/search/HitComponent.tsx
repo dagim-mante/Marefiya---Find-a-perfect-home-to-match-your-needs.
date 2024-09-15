@@ -160,8 +160,8 @@ export function HitComponent({hit, session, favourites}:  HitComponentProps){
                     }}
                 />
             </Link>
-            <div className="flex items-center justify-between">
-                <Badge>
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2">
+                <Badge className="w-fit">
                     {`${hit.type?.slice(0, 1).toUpperCase()}${hit.type?.slice(1)}`}
                 </Badge>
                 <p className="font-bold text-xs">
