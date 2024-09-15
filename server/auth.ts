@@ -55,6 +55,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       token.email = existingUser.email
       token.role = existingUser.role
       token.image = existingUser.image
+      token.bio = existingUser.bio
       return token
     },
     async session({session, token}){
@@ -70,6 +71,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.email = token.email as string
         session.user.isOAuth = token.isOAuth as boolean
         session.user.image = token.image as string
+        session.user.bio = token.bio as string | null
       }
       return session
     }

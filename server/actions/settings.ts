@@ -42,7 +42,8 @@ export const UpdateSettings = action
             name: values.name,
             password: values.password,
             email: values.email,
-            image: values.image
+            image: values.image,
+            bio: values.bio
         }).where(eq(users.id, dbUser.id))
         revalidatePath('/dashboard/settings')
         return {success: 'Settings updated.'}

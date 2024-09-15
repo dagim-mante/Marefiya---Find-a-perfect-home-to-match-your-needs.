@@ -50,6 +50,7 @@ export default function SettingsCard(session: SettingsTypes){
           password: undefined,
           newPassword: undefined,
           isTwoFactorEnabled: extractedSession?.user?.isTwoFactorEnabled || undefined,
+          bio: extractedSession?.user.bio || undefined 
         },
     })
 
@@ -152,6 +153,28 @@ export default function SettingsCard(session: SettingsTypes){
                                 </FormItem>
                             )}
                         />
+                        {extractedSession.user.role === 'owner' ? (
+                            <FormField
+                                control={form.control}
+                                name="bio"
+                                render={({ field }) => (
+                                    <FormItem>
+                                    <FormLabel>Bio</FormLabel>
+                                    <FormControl>
+                                        <Input 
+                                            placeholder="Your information here"
+                                            disabled={status === 'executing'}
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormDescription>
+                                        This is your bio, displayed below your name.
+                                    </FormDescription>
+                                    <FormMessage />
+                                    </FormItem>
+                            )}
+                            />
+                        ) : null}
                         <FormField
                             control={form.control}
                             name="password"

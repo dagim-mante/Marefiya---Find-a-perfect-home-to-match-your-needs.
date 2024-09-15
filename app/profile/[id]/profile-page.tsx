@@ -112,7 +112,7 @@ export default function ProfilePage({
                     <div className="flex items-center justify-center flex-col sm:flex-row max-sm:gap-5 sm:justify-between mb-5">
                         <div className="block">
                             <h3 className="font-manrope font-bold text-4xl text-gray-900 dark:text-gray-300 mb-1 max-sm:text-center">{profile.name}</h3>
-                            <p className="font-normal text-base leading-7 text-gray-500  max-sm:text-center w-4/5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa doloremque facere nobis, minima islore porro id! Dignissimos!</p>
+                            <p className="font-normal text-base leading-7 text-gray-500  max-sm:text-center w-4/5">{profile.bio ? profile.bio : 'My Bio...'}</p>
                         </div>
                         {(session && id !== session.user.id)? (
                             <button
