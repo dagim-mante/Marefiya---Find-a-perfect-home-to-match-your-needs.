@@ -148,7 +148,7 @@ export default function RegisterForm(){
                         <Separator className="w-16"/>
                     </div>
                     <Button
-                        className="w-56"
+                        className="w-56 px-2"
                         variant={`secondary`}
                         onClick={() => {
                             setRole('owner')
