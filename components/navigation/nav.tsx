@@ -16,9 +16,9 @@ export default async function Nav(){
                         <Link href={'/'} aria-label='Marefiya'>
                             <Image 
                                 alt='Logo'
-                                src='/logo.svg'
-                                width={40}
-                                height={35}
+                                src='/logo-purple.png'
+                                width={200}
+                                height={50}
                                 priority
                             />
                         </Link>
