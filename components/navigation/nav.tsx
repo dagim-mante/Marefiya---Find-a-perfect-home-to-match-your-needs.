@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { LogIn } from 'lucide-react'
 import { Button } from '../ui/button'
 import NavChat from '../chat/NavChat'
+import Logo from './logo'
+import MobileNav from './mobile-nav'
 
 export default async function Nav(){
     const session = await auth()
@@ -13,29 +15,26 @@ export default async function Nav(){
             <nav>
                 <ul className='flex justify-between items-center'>
                     <li>
-                        <Link href={'/'} aria-label='Marefiya'>
-                            <Image 
-                                alt='Logo'
-                                src='/logo-purple.png'
-                                width={200}
-                                height={50}
-                                priority
-                            />
-                        </Link>
+                        <Logo />
                     </li>
                     {!session ? (
-                        <li className="flex items-center gap-2">
-                            <Button className="hover:bg-primary hover:text-white" variant={'secondary'} asChild>
-                                <Link className="flex items-center gap-2" href='/auth/login'>
-                                    <LogIn size={12}/> <span>Login</span>
-                                </Link>
-                            </Button>
-                            <Button asChild>
-                                <Link href='/auth/register'>
-                                    <span>Sign up</span>
-                                </Link>
-                            </Button>
-                        </li>
+                        <>
+                            <li className="hidden md:flex items-center gap-2">
+                                <Button className="hover:bg-primary hover:text-white" variant={'secondary'} asChild>
+                                    <Link className="flex items-center gap-2" href='/auth/login'>
+                                        <LogIn size={12}/> <span>Login</span>
+                                    </Link>
+                                </Button>
+                                <Button asChild>
+                                    <Link href='/auth/register'>
+                                        <span>Sign up</span>
+                                    </Link>
+                                </Button>
+                            </li>
+                            <li className="inline-block md:hidden justify-end">
+                                <MobileNav />
+                            </li>
+                        </>
                     ) : (
                         <div className="flex items-center gap-4">
                             <li className="relative flex items-center hover:bg-muted">
