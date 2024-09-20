@@ -28,10 +28,10 @@ export default function MobileNav(){
                         <DropdownMenuContent>
                             <DropdownMenuLabel>Menu</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>
+                            <DropdownMenuItem asChild>
                                 <Link href="/auth/login">Login</Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem asChild>
                                 <Link href="/auth/register">Sign up</Link>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
