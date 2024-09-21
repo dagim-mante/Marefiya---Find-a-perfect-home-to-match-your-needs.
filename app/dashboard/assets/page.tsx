@@ -31,7 +31,6 @@ export default async function Assets(){
             type: asset.type as string,
             rentType: asset.rentType as string | null,
             price: asset.price,
-            image: placeholder.src,
             imageGalleryAndTags: asset
         } 
     })
