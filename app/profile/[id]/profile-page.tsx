@@ -95,7 +95,7 @@ export default function ProfilePage({
                 <Image 
                     width={1024}
                     height={500}
-                    src="https://utfs.io/f/926d9623-a509-4d0f-bde5-ea64c4036935-n3ch5g.png"
+                    src="/profile-banner.png"
                     alt="cover-image"
                     className="w-full absolute top-0 left-0 z-0 h-60"
                 />

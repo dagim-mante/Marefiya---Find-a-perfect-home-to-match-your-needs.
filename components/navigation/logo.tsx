@@ -10,7 +10,7 @@ export default function Logo(){
         <Link href={'/'} aria-label='Marefiya'>
             <Image 
                 alt='Logo'
-                src={'/logo-purple.png'}
+                src={theme === 'dark' ? '/logo-dark.png' : '/logo-purple.png'}
                 width={200}
                 height={50}
                 priority
