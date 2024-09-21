@@ -6,6 +6,7 @@ import Link from "next/link"
 
 export default function Logo(){
     const {theme} = useTheme()
+    
     return (
         <Link href={'/'} aria-label='Marefiya'>
             <Image 

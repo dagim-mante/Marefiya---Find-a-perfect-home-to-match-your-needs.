@@ -5,11 +5,14 @@ import Link from 'next/link'
 import { LogIn } from 'lucide-react'
 import { Button } from '../ui/button'
 import NavChat from '../chat/NavChat'
-import Logo from './logo'
 import MobileNav from './mobile-nav'
+import dynamic from 'next/dynamic'
 
 export default async function Nav(){
     const session = await auth()
+    const Logo = dynamic(() => import('./logo'), {
+        ssr: false
+    })
     return (
         <header className='h-28 py-8'>
             <nav>
