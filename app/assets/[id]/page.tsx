@@ -36,7 +36,7 @@ export default async function AssetDetails({
             <main>
                 <div className="p-4 lg:max-w-7xl max-w-xl max-lg:mx-auto">
                     <div className="grid items-start grid-cols-1 lg:grid-cols-5 gap-3">
-                        <div className="max-h-[300px] sm:min-h-[300px] lg:col-span-3 rounded-lg w-full lg:sticky top-0 text-center lg:p-6">
+                        <div className="xs:min-h-200px sm:min-h-[300px] lg:col-span-3 rounded-lg w-full lg:sticky top-0 text-center lg:p-6">
                             <AssetShowcase images={asset.assetImages} />
                         </div>
 
