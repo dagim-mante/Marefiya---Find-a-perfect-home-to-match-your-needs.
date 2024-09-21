@@ -5,6 +5,7 @@ import { auth } from "@/server/auth"
 import { redirect } from "next/navigation"
 import { assets as assetsSchema } from "@/server/schema"
 import { eq } from "drizzle-orm"
+import placeholder from '@/public/logo-dark.png'
 
 export default async function Assets(){
     const session = await auth()
@@ -30,7 +31,7 @@ export default async function Assets(){
             type: asset.type as string,
             rentType: asset.rentType as string | null,
             price: asset.price,
-            image: '',
+            image: placeholder.src,
             imageGalleryAndTags: asset
         } 
     })
