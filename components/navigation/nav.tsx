@@ -7,12 +7,13 @@ import { Button } from '../ui/button'
 import NavChat from '../chat/NavChat'
 import MobileNav from './mobile-nav'
 import dynamic from 'next/dynamic'
+import Logo from './logo'
 
 export default async function Nav(){
     const session = await auth()
-    const Logo = dynamic(() => import('./logo'), {
-        ssr: false
-    })
+    // const Logo = dynamic(() => import('./logo'), {
+    //     ssr: false
+    // })
     return (
         <header className='h-28 py-8'>
             <nav>
