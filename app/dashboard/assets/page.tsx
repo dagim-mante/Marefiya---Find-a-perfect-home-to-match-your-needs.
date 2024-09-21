@@ -1,5 +1,4 @@
 import { db } from "@/server"
-import placeholder from "@/public/placeholder_small.jpg"
 import { DataTable } from "./data-table"
 import { columns } from "./columns"
 import { auth } from "@/server/auth"
@@ -31,7 +30,7 @@ export default async function Assets(){
             type: asset.type as string,
             rentType: asset.rentType as string | null,
             price: asset.price,
-            image: placeholder.src,
+            image: asset.assetImages[0].url || '',
             imageGalleryAndTags: asset
         } 
     })
