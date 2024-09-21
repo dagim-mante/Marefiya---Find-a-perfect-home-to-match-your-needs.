@@ -30,7 +30,7 @@ export default async function Assets(){
             type: asset.type as string,
             rentType: asset.rentType as string | null,
             price: asset.price,
-            image: (asset.assetImages[0].url ? asset.assetImages[0].url : ''),
+            image: '',
             imageGalleryAndTags: asset
         } 
     })
