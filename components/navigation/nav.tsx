@@ -6,7 +6,7 @@ import { LogIn } from 'lucide-react'
 import { Button } from '../ui/button'
 import NavChat from '../chat/NavChat'
 import MobileNav from './mobile-nav'
-import dynamic from 'next/dynamic'
+// import dynamic from 'next/dynamic'
 import Logo from './logo'
 
 export default async function Nav(){
