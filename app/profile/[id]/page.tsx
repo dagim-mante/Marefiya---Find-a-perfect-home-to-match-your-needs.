@@ -26,7 +26,7 @@ export default async function Profile({
         )
     }
 
-    const data = await db.query.assets.findMany({
+    let data = await db.query.assets.findMany({
         where: eq(assets.owner, profile.id),
         with: {
             assetImages: true,
@@ -35,6 +35,7 @@ export default async function Profile({
             assetTags: true
         }
     })
+    data = data.filter(asset => asset.assetImages.length > 0)
 
     const session = await auth()
 

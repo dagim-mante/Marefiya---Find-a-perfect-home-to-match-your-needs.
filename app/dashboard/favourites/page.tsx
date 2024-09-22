@@ -10,7 +10,7 @@ export default async function Favourites(){
     const session = await auth()
     if(!session) redirect('/auth/login')
 
-    const assets = await db.query.favourites.findMany({
+    let assets = await db.query.favourites.findMany({
         where: eq(favourites.userId, session.user.id),
         with: {
             asset: {
@@ -23,6 +23,7 @@ export default async function Favourites(){
             }
         }
     })
+    assets = assets.filter(asset => asset.asset.assetImages.length > 0)
   
     return (
         <FavouritesList assets={assets} session={session}/>
