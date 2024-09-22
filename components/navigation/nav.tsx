@@ -19,7 +19,8 @@ export default async function Nav(){
             <nav>
                 <ul className='flex justify-between items-center'>
                     <li>
-                        <Logo />
+                        {/* <Logo /> */}
+                        logo
                     </li>
                     {!session ? (
                         <>
