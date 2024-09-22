@@ -6,7 +6,7 @@ import { auth } from "@/server/auth";
 export const revalidate = 60
 
 export default async function Home() {
-  const data = await db.query.assets.findMany({
+  let data = await db.query.assets.findMany({
     with: {
       assetImages: true,
       assetTags: true,
@@ -15,6 +15,7 @@ export default async function Home() {
     },
     orderBy: (assets, {desc}) => [desc(assets.id)]
   })
+  data = data.filter(asset => asset.assetImages.length > 0)
   const session = await auth()
 
   return (
