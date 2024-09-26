@@ -22,15 +22,9 @@
     <img src="https://img.shields.io/github/license/dagim-mante/Marefiya---Find-a-perfect-home-to-match-your-needs..svg" alt="license" />
   </a>
 </p>
-   
+
 <h4>
-    <a href="https://github.com/Louis3797/awesome-readme-template/">View Demo</a>
-  <span> · </span>
-    <a href="https://github.com/Louis3797/awesome-readme-template">Documentation</a>
-  <span> · </span>
-    <a href="https://github.com/Louis3797/awesome-readme-template/issues/">Report Bug</a>
-  <span> · </span>
-    <a href="https://github.com/Louis3797/awesome-readme-template/issues/">Request Feature</a>
+    <a href="https://marefiya.vercer.app">View Live Website</a>
   </h4>
 </div>
 
@@ -44,7 +38,6 @@
     - [:camera: Screenshots](#camera-screenshots)
     - [:space\_invader: Tech Stack](#space_invader-tech-stack)
     - [:dart: Features](#dart-features)
-    - [:art: Color Reference](#art-color-reference)
     - [:key: Environment Variables](#key-environment-variables)
   - [:toolbox: Getting Started](#toolbox-getting-started)
     - [:bangbang: Prerequisites](#bangbang-prerequisites)
@@ -65,7 +58,9 @@
 
 <!-- About the Project -->
 ## :star2: About the Project
-
+<p>
+    Marefiya(ማረፍያ, in Amharic meaning "a place to rest") is a fullstack platform that allows users to search, filter and save properties.Our platform can also be used by home owners to list their properties.
+</p>
 
 <!-- Screenshots -->
 ### :camera: Screenshots
@@ -78,49 +73,68 @@
 <!-- TechStack -->
 ### :space_invader: Tech Stack
 
-<details>
-  <summary>Client</summary>
-  <ul>
-    <li><a href="https://www.typescriptlang.org/">Typescript</a></li>
-    <li><a href="https://nextjs.org/">Next.js</a></li>
-    <li><a href="https://reactjs.org/">React.js</a></li>
-    <li><a href="https://tailwindcss.com/">TailwindCSS</a></li>
-  </ul>
-</details>
 
-<details>
-  <summary>Server</summary>
+  <summary>Client and Server</summary>
   <ul>
-    <li><a href="https://www.typescriptlang.org/">Typescript</a></li>
-    <li><a href="https://expressjs.com/">Express.js</a></li>
-    <li><a href="https://go.dev/">Golang</a></li>
-    <li><a href="https://nestjs.com/">Nest.js</a></li>
-    <li><a href="https://socket.io/">SocketIO</a></li>
-    <li><a href="https://www.prisma.io/">Prisma</a></li>    
-    <li><a href="https://www.apollographql.com/">Apollo</a></li>
-    <li><a href="https://graphql.org/">GraphQL</a></li>
+        <li>
+            <a href="https://www.typescriptlang.org/">
+                <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="Typescript"/>
+            </a>
+        </li>
+        <li>
+            <a href="https://nextjs.org/">
+                <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js"/>
+            </a>
+        </li>
+        <li>
+            <a href="https://tailwindcss.com/">
+                <img src="https://img.shields.io/badge/shadcn/ui-000000?style=for-the-badge&logo=shadcn/ui&logoColor=white" alt="ShadCN"/>
+            </a>
+        </li>
+        <li>
+            <a href="https://reactjs.org/">
+                <img src="https://shields.io/badge/react-black?logo=react&style=for-the-badge" alt="React.js"/>
+            </a>
+        </li>
+        <li>
+            <a href="https://tailwindcss.com/">
+                <img src="https://img.shields.io/badge/TailwindCSS-38B2AC?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwindcss"/>
+            </a>
+        </li>
+        <li>
+            <a href="https://tailwindcss.com/">
+                <img src="https://img.shields.io/badge/shadcn/ui-000000?style=for-the-badge&logo=shadcn/ui&logoColor=white" alt="ShadCN"/>
+            </a>
+        </li>
   </ul>
-</details>
 
-<details>
 <summary>Database</summary>
   <ul>
-    <li><a href="https://www.mysql.com/">MySQL</a></li>
-    <li><a href="https://www.postgresql.org/">PostgreSQL</a></li>
-    <li><a href="https://redis.io/">Redis</a></li>
-    <li><a href="https://neo4j.com/">Neo4j</a></li>
-    <li><a href="https://www.mongodb.com/">MongoDB</a></li>
+        <li>
+            <a href="https://www.postgresql.org/">
+                <img src="https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=fff&style=for-the-badge)" alt="PostgreSQL" />
+            </a>
+        </li>
+        <li>
+            <a href="https://orm.drizzle.team/">
+                <img src="https://img.shields.io/badge/Drizzle-C5F74F?logo=drizzle&logoColor=000&style=for-the-badge" alt="Drizzle"/>
+            </a>
+        </li>
+        <li>
+            <a href="https://redis.io/">
+                <img src="https://img.shields.io/badge/Redis-FF4438?logo=redis&logoColor=fff&style=for-the-badge" alt="Redis" />
+            </a>
+        </li>
   </ul>
-</details>
 
-<details>
-<summary>DevOps</summary>
+<summary>Deployment</summary>
   <ul>
-    <li><a href="https://www.docker.com/">Docker</a></li>
-    <li><a href="https://www.jenkins.io/">Jenkins</a></li>
-    <li><a href="https://circleci.com/">CircleCLI</a></li>
+    <li>
+        <a href="https://www.vercel.com/">
+        <img src="https://img.shields.io/badge/Vercel-000?logo=vercel&logoColor=fff&style=for-the-badge" alt="Vercel" />
+        </a>
+    </li>
   </ul>
-</details>
 
 <!-- Features -->
 ### :dart: Features
@@ -128,17 +142,6 @@
 - Feature 1
 - Feature 2
 - Feature 3
-
-<!-- Color Reference -->
-### :art: Color Reference
-
-| Color             | Hex                                                                |
-| ----------------- | ------------------------------------------------------------------ |
-| Primary Color | ![#222831](https://via.placeholder.com/10/222831?text=+) #222831 |
-| Secondary Color | ![#393E46](https://via.placeholder.com/10/393E46?text=+) #393E46 |
-| Accent Color | ![#00ADB5](https://via.placeholder.com/10/00ADB5?text=+) #00ADB5 |
-| Text Color | ![#EEEEEE](https://via.placeholder.com/10/EEEEEE?text=+) #EEEEEE |
-
 
 <!-- Env Variables -->
 ### :key: Environment Variables
