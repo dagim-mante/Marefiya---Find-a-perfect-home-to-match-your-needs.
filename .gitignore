@@ -34,3 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# ER Diagram
+./server/dbml.ts
+./server/schema.dbml

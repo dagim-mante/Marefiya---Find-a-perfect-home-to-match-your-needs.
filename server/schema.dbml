@@ -1,0 +1,151 @@
+enum type {
+  rent
+  sell
+}
+
+enum rentType {
+  night
+  week
+  month
+}
+
+enum roles {
+  user
+  owner
+  admin
+}
+
+table account {
+  userId text [not null]
+  type text [not null]
+  provider text [not null]
+  providerAccountId text [not null]
+  refresh_token text
+  access_token text
+  expires_at integer
+  token_type text
+  scope text
+  id_token text
+  session_state text
+
+  indexes {
+    (provider, providerAccountId) [pk]
+  }
+}
+
+table assetImages {
+  id serial [pk, not null, increment]
+  url text [not null]
+  size real [not null]
+  name text [not null]
+  order real [not null]
+  assetId serial [not null, increment]
+}
+
+table assetTags {
+  id serial [pk, not null, increment]
+  tag text [not null]
+  assetId serial [not null, increment]
+}
+
+table assets {
+  id serial [pk, not null, increment]
+  owner text [not null]
+  title text [not null]
+  description text [not null]
+  price real [not null]
+  created timestamp [default: `now()`]
+  type type [default: 'rent']
+  rentType rentType [default: 'month']
+  location text [not null]
+  latitude real [not null]
+  longitude real [not null]
+}
+
+table email_token {
+  id text [not null]
+  email text [not null]
+  token text [not null]
+  expires timestamp [not null]
+
+  indexes {
+    (id, token) [pk]
+  }
+}
+
+table favourites {
+  id serial [pk, not null, increment]
+  assetId serial [not null, increment]
+  userId text [not null]
+  created timestamp [default: `now()`]
+}
+
+table password_reset_token {
+  id text [not null]
+  email text [not null]
+  token text [not null]
+  expires timestamp [not null]
+
+  indexes {
+    (id, token) [pk]
+  }
+}
+
+table reviews {
+  id serial [pk, not null, increment]
+  rating real [not null]
+  userId text [not null]
+  assetId serial [not null, increment]
+  comment text [not null]
+  created timestamp [default: `now()`]
+
+  indexes {
+    assetId [name: 'assetIdx']
+    userId [name: 'userIdx']
+  }
+}
+
+table two_factor_token {
+  id text [not null]
+  email text [not null]
+  token text [not null]
+  expires timestamp [not null]
+  userId text
+
+  indexes {
+    (id, token) [pk]
+  }
+}
+
+table user {
+  id text [pk, not null]
+  name text [not null]
+  email text [not null]
+  password text [not null]
+  emailVerified timestamp
+  image text [not null, default: 'https://utfs.io/f/ez2eGPgh5yPHRqyddGKJgsdkimrNyB7E92IOtTCf4PhDZb3G']
+  bio text
+  twofactorEnabled boolean [default: false]
+  roles roles [default: 'user']
+}
+
+table views {
+  id serial [pk, not null, increment]
+  assetId serial [not null, increment]
+  ip text [not null]
+  created timestamp [default: `now()`]
+}
+
+ref: assetImages.assetId > assets.id
+
+ref: assetTags.assetId > assets.id
+
+ref: favourites.userId > user.id
+
+ref: favourites.assetId > assets.id
+
+ref: reviews.userId > user.id
+
+ref: reviews.assetId > assets.id
+
+ref: views.assetId > assets.id
