@@ -1,6 +1,6 @@
 <div align="center">
   <img src="./public/logo-purple.png" alt="logo" width="200" height="auto" />
-  <h1>Marefiya - Find Your Perfect Home, Tailored to You.</h1>
+  <h1>Marefiya - Find The Perfect Home, Tailored to You.</h1>
   
   <p>
     A platform that helps users find homes by providing personalized searches and tailored recommendations to meet their specific needs
@@ -13,19 +13,13 @@
     <img src="https://img.shields.io/github/contributors/dagim-mante/Marefiya---Find-a-perfect-home-to-match-your-needs." alt="contributors" />
   </a>
   <a href="">
-    <img src="https://img.shields.io/github/last-commit/Louis3797/awesome-readme-template" alt="last update" />
+    <img src="https://img.shields.io/github/last-commit/dagim-mante/Marefiya---Find-a-perfect-home-to-match-your-needs." alt="Last Update" />
   </a>
-  <a href="https://github.com/Louis3797/awesome-readme-template/network/members">
-    <img src="https://img.shields.io/github/forks/Louis3797/awesome-readme-template" alt="forks" />
+  <a href="https://github.com/dagim-mante/Marefiya---Find-a-perfect-home-to-match-your-needs./stargazers">
+    <img src="https://img.shields.io/github/stars/dagim-mante/Marefiya---Find-a-perfect-home-to-match-your-needs." alt="stars" />
   </a>
-  <a href="https://github.com/Louis3797/awesome-readme-template/stargazers">
-    <img src="https://img.shields.io/github/stars/Louis3797/awesome-readme-template" alt="stars" />
-  </a>
-  <a href="https://github.com/Louis3797/awesome-readme-template/issues/">
-    <img src="https://img.shields.io/github/issues/Louis3797/awesome-readme-template" alt="open issues" />
-  </a>
-  <a href="https://github.com/Louis3797/awesome-readme-template/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/Louis3797/awesome-readme-template.svg" alt="license" />
+  <a href="https://github.com/dagim-mante/Marefiya---Find-a-perfect-home-to-match-your-needs./blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/dagim-mante/Marefiya---Find-a-perfect-home-to-match-your-needs..svg" alt="license" />
   </a>
 </p>
    
