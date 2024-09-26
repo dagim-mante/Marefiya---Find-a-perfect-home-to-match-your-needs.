@@ -81,11 +81,6 @@
             </a>
         </li>
         <li>
-            <a href="https://ui.shadcn.com/">
-                <img src="https://img.shields.io/badge/shadcn/ui-000000?style=for-the-badge&logo=shadcn/ui&logoColor=white" alt="ShadCN"/>
-            </a>
-        </li>
-        <li>
             <a href="https://reactjs.org/">
                 <img src="https://shields.io/badge/react-black?logo=react&style=for-the-badge" alt="React.js"/>
             </a>
@@ -96,7 +91,7 @@
             </a>
         </li>
         <li>
-            <a href="https://tailwindcss.com/">
+            <a href="https://ui.shadcn.com/">
                 <img src="https://img.shields.io/badge/shadcn/ui-000000?style=for-the-badge&logo=shadcn/ui&logoColor=white" alt="ShadCN"/>
             </a>
         </li>
