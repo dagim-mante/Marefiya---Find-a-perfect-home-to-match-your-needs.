@@ -4,12 +4,12 @@ import getBaseURL from '@/lib/base-url'
 const nodemailer = require('nodemailer')
 
 const transporter = nodemailer.createTransport({
-  host: "smtp-relay.brevo.com",
+  host: "smtp.mailersend.net",
   port: 587,
   secure: false, // true for 465, false for other ports
   auth: {
-    user: "7ce6b2001@smtp-brevo.com", // generated brevo user
-    pass: "8Sa4RMZUXqdgBDhb" // generated brevo password
+    user: process.env.EMAIL_ACCOUNT,
+    pass: process.env.EMAIL_password
   },
 });
 
