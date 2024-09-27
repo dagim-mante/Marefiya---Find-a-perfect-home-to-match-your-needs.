@@ -42,7 +42,6 @@
   - [:toolbox: Getting Started](#toolbox-getting-started)
     - [:bangbang: Prerequisites](#bangbang-prerequisites)
     - [:gear: Installation](#gear-installation)
-    - [:test\_tube: Running Tests](#test_tube-running-tests)
     - [:running: Run Locally](#running-run-locally)
   - [:wave: Contributing](#wave-contributing)
   - [:warning: License](#warning-license)
@@ -161,15 +160,6 @@ Install my-project with npm
 ```bash
   yarn install my-project
   cd my-project
-```
-   
-<!-- Running Tests -->
-### :test_tube: Running Tests
-
-To run tests, run the following command
-
-```bash
-  yarn test test
 ```
 
 <!-- Run Locally -->

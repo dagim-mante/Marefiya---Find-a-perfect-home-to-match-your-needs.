@@ -4,13 +4,12 @@ import getBaseURL from '@/lib/base-url'
 const nodemailer = require('nodemailer')
 
 const transporter = nodemailer.createTransport({
-  service: "Gmail",
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
+  host: "smtp-relay.brevo.com",
+  port: 587,
+  secure: false, // true for 465, false for other ports
   auth: {
-    user: process.env.EMAIL_ACCOUNT,
-    pass: process.env.EMAIL_PASSWORD,
+    user: "7ce6b2001@smtp-brevo.com", // generated brevo user
+    pass: "8Sa4RMZUXqdgBDhb" // generated brevo password
   },
 });
 
@@ -110,6 +109,7 @@ export const sendPasswordResetEmail = async(email:string, token:string) => {
     })
   })
 }
+
 
 export const sendTwoFactorEmail = async(email:string, token:string) => {
   const mailOptions = {
