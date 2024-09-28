@@ -13,7 +13,8 @@ export default async function Home() {
       favourites: true,
       reviews: true
     },
-    orderBy: (assets, {desc}) => [desc(assets.id)]
+    orderBy: (assets, {desc}) => [desc(assets.id)],
+    limit: 12
   })
   data = data.filter(asset => asset.assetImages.length > 0)
   const session = await auth()
