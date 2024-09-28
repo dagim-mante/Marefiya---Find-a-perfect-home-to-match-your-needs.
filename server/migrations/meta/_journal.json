@@ -71,6 +71,13 @@
       "when": 1726356771763,
       "tag": "0009_spotty_satana",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1727554935433,
+      "tag": "0010_overjoyed_chameleon",
+      "breakpoints": true
     }
   ]
 }
