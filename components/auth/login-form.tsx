@@ -98,7 +98,7 @@ export default function LoginForm(){
                                         <Input 
                                             {...field}
                                             type="email"
-                                            placeholder="myemail@gmail.com"
+                                            placeholder="email@gmail.com"
                                             autoComplete="email"
                                         />
                                     </FormControl>
