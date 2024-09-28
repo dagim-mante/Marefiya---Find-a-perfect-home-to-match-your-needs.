@@ -79,8 +79,12 @@ export default function ChatList({
                               </span>
                               </div>
                               <span className="block ml-2 text-sm text-gray-600 dark:text-gray-400">
-                              {chatWithLastMessage.find(chat => chat.activeChat === activeChat.id)?.lastMessage.senderId === session.user.id ? "You:": ""}{" "}
-                                {chatWithLastMessage.find(chat => chat.activeChat === activeChat.id)?.lastMessage.text}
+                                {chatWithLastMessage.find(chat => chat.activeChat === activeChat.id)?.lastMessage.senderId === session.user.id ? "You:": ""}{" "}
+                                {chatWithLastMessage.find(chat => chat.activeChat === activeChat.id)?.lastMessage?.text?.length! > 20 ? (
+                                  chatWithLastMessage.find(chat => chat.activeChat === activeChat.id)?.lastMessage.text.slice(0, 20) + "..."
+                                ) : (
+                                  chatWithLastMessage.find(chat => chat.activeChat === activeChat.id)?.lastMessage.text
+                                )}
                               </span>
                           </div>
                         </Link>
