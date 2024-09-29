@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
     }
   return (
     <footer>
-        <div className="mt-4 bg-gray-200 dark:bg-gray-800 flex flex-col shrink-0 rounded-sm p-4">
+        <div className="mt-4 bg-gray-200 dark:bg-gray-800 flex flex-col shrink-0 rounded-sm px-6 md:px-12 mx-auto max-w-7xl">
             <div className="flex flex-col sm:flex-row items-center sm:justify-between mb-4">
                 <Logo />
                 <ul className='mt-2 flex flex-col gap-2 items-center sm:items-start'>
