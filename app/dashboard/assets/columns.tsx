@@ -66,6 +66,11 @@ const ActionCell = ({row}: {row: Row<Asset>}) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
                 <DropdownMenuItem className="dark:focus:bg-primary focus:bg-primary/50 cursor-pointer">
+                    <Link href={`/assets/${asset.id}`} target="_blank">
+                        View Asset
+                    </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="dark:focus:bg-primary focus:bg-primary/50 cursor-pointer">
                     <Link href={`/dashboard/add-asset?id=${asset.id}`}>
                         Edit Asset
                     </Link>
