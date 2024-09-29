@@ -5,6 +5,7 @@ import { Roboto_Serif } from 'next/font/google'
 import Nav from "@/components/navigation/nav";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import Toaster from "@/components/ui/toaster";
+import Footer from "@/components/extras/footer";
 
 const roboto = Roboto_Serif({
   subsets: ["latin"],
@@ -21,6 +22,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={roboto.className}>
@@ -32,6 +34,7 @@ export default function RootLayout({
           <div className="flex-grow px-6 md:px-12 mx-auto max-w-7xl">
             <Nav />
             {children}
+            <Footer />
             <Toaster />
           </div>
         </ThemeProvider>
