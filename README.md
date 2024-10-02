@@ -62,25 +62,25 @@
   <div align="center">
     <div style="display: flex; flex-wrap: wrap; justify-content: center;">
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="https://utfs.io/f/ez2eGPgh5yPHxYcB24TD3YukC9hTvQimXMF4cgnxdJzPNZ6R" alt="Screenshot 1" width="100%" height="300">
+        <img src="https://utfs.io/f/ez2eGPgh5yPHxYcB24TD3YukC9hTvQimXMF4cgnxdJzPNZ6R" alt="Screenshot 1" width="300" height="300">
       </div>
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="https://utfs.io/f/ez2eGPgh5yPHONQf0YWGK3tpbnc8mX2JywYP1RgLr6d75Fiz" alt="Screenshot 2" width="100%" height="300">
+        <img src="https://utfs.io/f/ez2eGPgh5yPHONQf0YWGK3tpbnc8mX2JywYP1RgLr6d75Fiz" alt="Screenshot 2" width="300" height="300">
       </div>
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="https://utfs.io/f/ez2eGPgh5yPHeqqLmkh5yPHf1XGr8to4bFcT3jmJVsYdAqBw" alt="Screenshot 3" width="100%" height="300">
+        <img src="https://utfs.io/f/ez2eGPgh5yPHeqqLmkh5yPHf1XGr8to4bFcT3jmJVsYdAqBw" alt="Screenshot 3" width="300" height="300">
       </div>
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="https://utfs.io/f/ez2eGPgh5yPHBbnTU3HujMsDtVE503kXqn16dvb2AKO7TRlc" alt="Screenshot 4" width="100%" height="300">
+        <img src="https://utfs.io/f/ez2eGPgh5yPHBbnTU3HujMsDtVE503kXqn16dvb2AKO7TRlc" alt="Screenshot 4" width="300" height="300">
       </div>
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="https://utfs.io/f/ez2eGPgh5yPHTMFoSYasDNKMikeh3doYx4RjL5Xgq6QbVzAy" alt="Screenshot 5" width="100%" height="300">
+        <img src="https://utfs.io/f/ez2eGPgh5yPHTMFoSYasDNKMikeh3doYx4RjL5Xgq6QbVzAy" alt="Screenshot 5" width="300" height="300">
       </div>
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="https://utfs.io/f/ez2eGPgh5yPHaJ20XOlmCXjpofcz4Lnh20gJu5VZ76WdTAst" alt="Screenshot 6" width="100%" height="300">
+        <img src="https://utfs.io/f/ez2eGPgh5yPHaJ20XOlmCXjpofcz4Lnh20gJu5VZ76WdTAst" alt="Screenshot 6" width="300" height="300">
       </div>
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="https://utfs.io/f/ez2eGPgh5yPHTkjOScasDNKMikeh3doYx4RjL5Xgq6QbVzAy" alt="Screenshot 7" width="100%" height="300">
+        <img src="https://utfs.io/f/ez2eGPgh5yPHTkjOScasDNKMikeh3doYx4RjL5Xgq6QbVzAy" alt="Screenshot 7" width="300" height="300">
       </div>
     </div>
 </div>
