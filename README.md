@@ -41,7 +41,6 @@
     - [:key: Environment Variables](#key-environment-variables)
   - [:toolbox: Getting Started](#toolbox-getting-started)
     - [:bangbang: Prerequisites](#bangbang-prerequisites)
-    - [:gear: Installation](#gear-installation)
     - [:running: Run Locally](#running-run-locally)
   - [:wave: Contributing](#wave-contributing)
   - [:warning: License](#warning-license)
@@ -62,25 +61,25 @@
   <div align="center">
     <div style="display: flex; flex-wrap: wrap; justify-content: center;">
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="https://utfs.io/f/ez2eGPgh5yPHxYcB24TD3YukC9hTvQimXMF4cgnxdJzPNZ6R" alt="Screenshot 1" width="300" height="300">
+        <img src="https://utfs.io/f/ez2eGPgh5yPHxYcB24TD3YukC9hTvQimXMF4cgnxdJzPNZ6R" alt="Screenshot 1" width="100%" height="300">
       </div>
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="https://utfs.io/f/ez2eGPgh5yPHONQf0YWGK3tpbnc8mX2JywYP1RgLr6d75Fiz" alt="Screenshot 2" width="300" height="300">
+        <img src="https://utfs.io/f/ez2eGPgh5yPHONQf0YWGK3tpbnc8mX2JywYP1RgLr6d75Fiz" alt="Screenshot 2" width="100%" height="300">
       </div>
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="https://utfs.io/f/ez2eGPgh5yPHeqqLmkh5yPHf1XGr8to4bFcT3jmJVsYdAqBw" alt="Screenshot 3" width="300" height="300">
+        <img src="https://utfs.io/f/ez2eGPgh5yPHeqqLmkh5yPHf1XGr8to4bFcT3jmJVsYdAqBw" alt="Screenshot 3" width="100%" height="300">
       </div>
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="https://utfs.io/f/ez2eGPgh5yPHBbnTU3HujMsDtVE503kXqn16dvb2AKO7TRlc" alt="Screenshot 4" width="300" height="300">
+        <img src="https://utfs.io/f/ez2eGPgh5yPHBbnTU3HujMsDtVE503kXqn16dvb2AKO7TRlc" alt="Screenshot 4" width="100%" height="300">
       </div>
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="https://utfs.io/f/ez2eGPgh5yPHTMFoSYasDNKMikeh3doYx4RjL5Xgq6QbVzAy" alt="Screenshot 5" width="300" height="300">
+        <img src="https://utfs.io/f/ez2eGPgh5yPHTMFoSYasDNKMikeh3doYx4RjL5Xgq6QbVzAy" alt="Screenshot 5" width="100%" height="300">
       </div>
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="https://utfs.io/f/ez2eGPgh5yPHaJ20XOlmCXjpofcz4Lnh20gJu5VZ76WdTAst" alt="Screenshot 6" width="300" height="300">
+        <img src="https://utfs.io/f/ez2eGPgh5yPHaJ20XOlmCXjpofcz4Lnh20gJu5VZ76WdTAst" alt="Screenshot 6" width="100%" height="300">
       </div>
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="https://utfs.io/f/ez2eGPgh5yPHTkjOScasDNKMikeh3doYx4RjL5Xgq6QbVzAy" alt="Screenshot 7" width="300" height="300">
+        <img src="https://utfs.io/f/ez2eGPgh5yPHTkjOScasDNKMikeh3doYx4RjL5Xgq6QbVzAy" alt="Screenshot 7" width="100%" height="300">
       </div>
     </div>
 </div>
@@ -150,18 +149,48 @@
 <!-- Features -->
 ### :dart: Features
 
-- Feature 1
-- Feature 2
-- Feature 3
+- Full Authentication(with credentials and OAuth) using NextAuth
+- Robust search and filtering using Algolia search
+- Realtime chat using Redis and Pusher
+- Geolocation filtering using an interactive map using React Leaflet
+- Analytics display using Recharts
+- and many more
 
 <!-- Env Variables -->
 ### :key: Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`API_KEY`
+```bash
+  // Your Postgres database hosted on NeonDB
+  POSTGRES_URL = 
 
-`ANOTHER_API_KEY`
+  // Get them from  Google Cloud Console
+  GOOGLE_CLIENT_ID= // Google Client ID
+  GOOGLE_CLIENT_SECRET= // Google Client Secret
+
+  // Get them from uploadthing
+  UPLOADTHING_SECRET=
+  UPLOADTHING_APP_ID= 
+
+  // SMTP configuration to send emails
+  EMAIL_ACCOUNT=
+  EMAIL_PASSWORD=
+
+  // Get them from Algolia Search dashboard
+  NEXT_PUBLIC_ALGOLIA_ID=
+  ALGOLIA_ADMIN=
+  NEXT_PUBLIC_ALGOLIA_SEARCH=
+
+  // Get them from Upstash
+  UPSTASH_REDIS_REST_URL=
+  UPSTASH_REDIS_REST_TOKEN=
+
+  // Get them from Pusher
+  PUSHER_APP_ID=
+  NEXT_PUBLIC_PUSHER_KEY=
+  PUSHER_APP_SECRET=
+```
 
 <!-- Getting Started -->
 ## 	:toolbox: Getting Started
@@ -169,47 +198,39 @@ To run this project, you will need to add the following environment variables to
 <!-- Prerequisites -->
 ### :bangbang: Prerequisites
 
-This project uses Yarn as package manager
+This project uses Nodejs and npm as a package manager.
+Check taht you have them installed/
 
 ```bash
- npm install --global yarn
-```
-
-<!-- Installation -->
-### :gear: Installation
-
-Install my-project with npm
-
-```bash
-  yarn install my-project
-  cd my-project
+ node -v
+ npm -v
 ```
 
 <!-- Run Locally -->
 ### :running: Run Locally
 
+Create a project directory
+
+```bash
+  mkdir my-project
+```
+
 Clone the project
 
 ```bash
-  git clone https://github.com/Louis3797/awesome-readme-template.git
-```
-
-Go to the project directory
-
-```bash
-  cd my-project
+  git clone https://github.com/dagim-mante/Marefiya---Find-a-perfect-home-to-match-your-needs..git .
 ```
 
 Install dependencies
 
 ```bash
-  yarn install
+  npm install
 ```
 
 Start the server
 
 ```bash
-  yarn start
+  npm run dev
 ```
 
 
@@ -222,8 +243,6 @@ Start the server
 
 
 Contributions are always welcome!
-
-See `contributing.md` for ways to get started.
 
 
 
@@ -238,10 +257,10 @@ Distributed under the Apache 2.0 License. See LICENSE.txt for more information.
 ## :handshake: Contact
 
 <p>
-    <a href="#">
+    <a href="https://x.com/DMantefardo">
         <img src="https://img.shields.io/badge/X-000?logo=x&logoColor=fff&style=for-the-badge" alt="Twitter" />
     </a>
-    <a href="#">
+    <a href="https://www.linkedin.com/in/dagimawi-mantefardo/">
         <img src="https://img.shields.io/badge/LinkedIn-0A66C2?logo=linkedin&logoColor=fff&style=for-the-badge" alt="LinkedIn" />
     </a>
 </p>
