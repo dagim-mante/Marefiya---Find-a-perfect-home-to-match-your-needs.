@@ -59,7 +59,7 @@
 ### :camera: Screenshots
 
 <div align="center"> 
-  <img src="https://placehold.co/600x400?text=Your+Screenshot+here" alt="screenshot" />
+  <img src="https://utfs.io/f/ez2eGPgh5yPHxYcB24TD3YukC9hTvQimXMF4cgnxdJzPNZ6R" alt="screenshot" />
 </div>
 
 
